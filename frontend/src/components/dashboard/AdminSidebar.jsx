@@ -9,6 +9,7 @@ import {
   FaCogs,
 } from "react-icons/fa";
 
+// Configuration for sidebar navigation items to keep the component clean and maintainable
 const navLinks = [
   { to: "/admin-dashboard", icon: <FaTachometerAlt />, text: "Dashboard", end: true },
   { to: "/admin-dashboard/employees", icon: <FaUsers />, text: "Employee" },
@@ -19,6 +20,11 @@ const navLinks = [
 ];
 
 const AdminSidebar = () => {
+  /**
+   * Helper function to handle active/inactive styling for NavLinks.
+   * React Router's NavLink provides an 'isActive' boolean in its className callback.
+   * @param {Object} params - Contains isActive boolean
+   */
   const navLinkClass = ({ isActive }) =>
     `flex items-center space-x-3 rounded-md px-4 py-2.5 text-sm font-medium transition-colors duration-200 ease-in-out ${
       isActive
@@ -28,10 +34,13 @@ const AdminSidebar = () => {
 
   return (
     <aside className="bg-blue-900 text-white w-64 h-screen fixed left-0 top-0 flex flex-col border-r border-blue-800">
+      {/* Sidebar Header / Logo Section */}
       <div className="bg-blue-900 h-16 flex items-center justify-center px-4 border-b border-blue-800">
         <h2 className="text-xl text-center font-extrabold tracking-tight text-white">ANDRITZ</h2>
       </div>
+
       <nav className="flex-1 px-4 py-6 space-y-2">
+        {/* Map through the navLinks array to generate navigation items dynamically */}
         {navLinks.map((link) => (
           <NavLink
             key={link.to}

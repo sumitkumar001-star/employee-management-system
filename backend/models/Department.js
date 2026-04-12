@@ -5,6 +5,10 @@ import Salary from "./Salary.js";
 import Leave from "./Leave.js";
 
 
+/**
+ * Department Schema defines the structure for organizational departments.
+ * Each department has a name, an optional description, and timestamps.
+ */
 const departmentSchema = new mongoose.Schema({
   dep_name: {
     type: String,
@@ -22,11 +26,23 @@ const departmentSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+/**
+ * Middleware: Cascade Delete
+ * This 'pre' hook runs before a department document is deleted.
+ * It ensures data integrity by removing all related records:
+ * 1. Finds all employees belonging to this department.
+ * 2. Deletes those Employee records.
+ * 3. Deletes the corresponding User accounts for those employees.
+ * 4. Deletes all Salary history associated with those employees.
+ * 5. Deletes all Leave applications associated with those employees.
+ */
 departmentSchema.pre(
   "deleteOne",
   { document: true, query: false },
   async function (next) {
     try {
+      // Access models dynamically to avoid circular dependency issues
       const Employee = mongoose.model("Employee");
       const User = mongoose.model("User");
       const Salary = mongoose.model("Salary");

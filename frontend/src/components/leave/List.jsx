@@ -10,21 +10,27 @@ import { useNavigate } from "react-router-dom";
 const List = () => {
     const { user } = useAuthContext();
   const DataTable = DataTables.default;
-  const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [employees, setEmployees] = useState([]);
+  // State to store the leave records after applying search filters
+  const [filteredLeaves, setFilteredLeaves] = useState([]);
+  // State to store the full list of leave records from the server
+  const [leaves, setLeaves] = useState([]);
+  // State to manage the loading spinner/status
   const [empLoading, setEmpLoading] = useState(false);
+  // Extract the employee ID from the URL parameters (used by Admin)
   const { id } = useParams();
+  // If no ID in URL, use the logged-in user's ID (used by Employee)
   const employeeId = id || user._id;
 
-
+  // Filter the leave list based on the search input value (by leave type)
   const handleFilter = (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    const filtered = employees.filter((leave) =>
+    const filtered = leaves.filter((leave) =>
       leave.leaveType.toLowerCase().includes(searchTerm),
     );
-    setFilteredEmployees(filtered);
+    setFilteredLeaves(filtered);
   };
 
+  // Define table columns for the Data Table
   const columns = [
     {
       name: "S No",
@@ -90,6 +96,7 @@ const List = () => {
     },
   ];
 
+  // Fetch leave records from the backend on component mount or when employeeId changes
    useEffect(() => {
     const fetchLeaves = async () => {
       setEmpLoading(true);
@@ -104,6 +111,7 @@ const List = () => {
         );
         if (response.data.success) {
           let sno = 1;
+          // Map the raw data to include serial numbers and formatted dates for the table
           const data = response.data.leaves.map((leave) => ({
             _id: leave._id,
             sno: sno++,
@@ -115,8 +123,8 @@ const List = () => {
             status: leave.status,
             reason: leave.reason,
           }));
-          setEmployees(data);
-          setFilteredEmployees(data);
+          setLeaves(data);
+          setFilteredLeaves(data);
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -170,7 +178,7 @@ const List = () => {
           <div className="mt-6 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
             <DataTable
               columns={columns}
-              data={filteredEmployees}
+              data={filteredLeaves}
               pagination
               responsive
             />

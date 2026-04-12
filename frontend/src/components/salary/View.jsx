@@ -3,12 +3,19 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const View = () => {
+  // State to store the full list of salary records for the employee
   const [salaries, setSalaries] = useState([]);
+  // State to store the salary records after applying search filters
   const [filterSalaries, setFilterSalaries] = useState([]);
+  // State to manage the loading spinner/status
   const [salaryLoading, setSalaryLoading] = useState(false);
+  // Extract the employee ID from the URL parameters
   const { id } = useParams();
   let sno = 1;
+
+  // Fetch salary records for a specific employee from the backend
   const fetchSalaries = async () => {
+    setSalaryLoading(true);
     try {
       const response = await axios.get(
         `http://localhost:5000/api/salary/employee/${id}`,
@@ -30,10 +37,13 @@ const View = () => {
       setSalaryLoading(false);
     }
   };
+
+  // Fetch salaries on component mount
   useEffect(() => {
     fetchSalaries();
   }, []);
 
+  // Filter the salary list based on search input (Emp ID, Pay Date, or Basic Salary)
   const filterSalary = (q) => {
     const filteredRecords = salaries.filter((salary) => {
       return (

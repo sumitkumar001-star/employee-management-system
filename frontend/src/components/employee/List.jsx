@@ -8,15 +8,21 @@ import { EmployeeButtons, columns } from "../../utils/EmployeeHelper";
 import { useNavigate } from "react-router-dom";
 
 const List = () => {
+  // Accessing the default export of react-data-table-component
   const DataTable = DataTables.default;
+  // State to store the employees after applying search filters
   const [filteredEmployees, setFilteredEmployees] = useState([]);
+  // State to store the full list of employees from the server
   const [employees, setEmployees] = useState([]);
+  // State to manage the loading spinner/status
   const [empLoading, setEmpLoading] = useState(false);
 
+  // Fetch employees from the backend on component mount
   useEffect(() => {
     const fetchEmployees = async () => {
       setEmpLoading(true);
       try {
+        // Send a GET request with the authorization token
         const response = await axios.get("http://localhost:5000/api/employee", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -25,6 +31,7 @@ const List = () => {
         if (response.data.success) {
           let sno = 1;
 
+          // Map the raw data to include serial numbers and formatted fields for the table
           const data = response.data.employees.map((emp) => ({
             _id: emp._id,
             sno: sno++,
@@ -38,6 +45,7 @@ const List = () => {
                 src={`http://localhost:5000/${emp.userId?.profilePicture}`}
               />
             ),
+            // Action buttons (View, Edit, etc.) are typically injected here via Helper
             action: <div></div>,
           }));
           setEmployees(data);
@@ -54,6 +62,7 @@ const List = () => {
     fetchEmployees();
   }, []);
 
+  // Filter the employee list based on the search input value (by name)
   const handleFilter = (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filtered = employees.filter((emp) =>

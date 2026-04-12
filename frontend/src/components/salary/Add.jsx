@@ -8,6 +8,7 @@ import { getEmployees } from "../../utils/EmployeeHelper";
 
 const AddSalary = () => {
   const navigate = useNavigate();
+  // State to manage the salary form data for a specific employee
   const [employee, setEmployee] = useState({
     employeeId: "",
     basicSalary: 0,
@@ -16,11 +17,15 @@ const AddSalary = () => {
     payDate: null,
     department: "",
   });
+  // State for error handling
   const [error, setError] = useState(null);
+  // State to store the list of employees filtered by department
   const [employees, setEmployees] = useState([]);
+  // State to store the list of departments for the dropdown
   const [departments, setDepartments] = useState(null);
   const { id } = useParams();
 
+  // Fetch departments to populate the dropdown menu on component mount
   useEffect(() => {
     const getDepartments = async () => {
       const departments = await fetchDepartments();
@@ -29,6 +34,7 @@ const AddSalary = () => {
     getDepartments();
   }, []);
 
+  // Fetch existing employee data if an ID is provided in the URL
   useEffect(() => {
     const fetchEmployee = async () => {
       if (!id) return;
@@ -61,6 +67,7 @@ const AddSalary = () => {
     fetchEmployee();
   }, [id]);
 
+  // Fetch employees belonging to the selected department
   const handleDepartment = async (e) => {
     const departmentId = e.target.value;
     const emps = await getEmployees(departmentId);
@@ -72,6 +79,7 @@ const AddSalary = () => {
     }));
   };
 
+  // Update the local state dynamically as the user types in the input fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
@@ -80,6 +88,7 @@ const AddSalary = () => {
     });
   };
 
+  // Handle the form submission to create a new salary record via a POST request
   const handleSubmit = async (e) => {
     e.preventDefault();
 

@@ -3,6 +3,11 @@ import Employee from "../models/Employee.js";
 import Department from "../models/Department.js";
 
 
+/**
+ * Handles the creation of a new leave application.
+ * It identifies the employee using either employeeId or userId,
+ * then saves the leave details (type, dates, reason) to the database.
+ */
 const addLeave = async (req, res) => {
   try {
     const { employeeId, userId, leaveType, startDate, endDate, reason } = req.body;
@@ -38,6 +43,11 @@ const addLeave = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves all leave applications from the database.
+ * Populates nested employee details including department and 
+ * specific user fields (name, profileImage) for the admin view.
+ */
 const getLeaves = async (req, res) => {
   try {
     const leaves = await Leave.find().populate({
@@ -54,6 +64,11 @@ const getLeaves = async (req, res) => {
   }
 };
 
+/**
+ * Fetches all leave records belonging to a specific employee.
+ * The ID provided can be either the Employee document ID or the User ID.
+ * Useful for the employee's personal dashboard to see their history.
+ */
 const getEmployeeLeaves = async (req, res) => {
   try {
     const { id } = req.params;
@@ -81,7 +96,10 @@ const getEmployeeLeaves = async (req, res) => {
   }
 };
 
-// New controller to get a single leave by its _id
+/**
+ * Retrieves the full details of a single leave application by its ID.
+ * Used when an admin or manager needs to view the specifics of one request.
+ */
 const getLeaveDetail = async (req, res) => {
   try {
     const { id } = req.params;
@@ -101,6 +119,10 @@ const getLeaveDetail = async (req, res) => {
   }
 };
 
+/**
+ * Updates the status of a leave application (e.g., Pending to Approved/Rejected).
+ * Expects the new status in the request body.
+ */
 const updateLeaveStatus = async (req, res) => {
   try {
     const { id } = req.params;

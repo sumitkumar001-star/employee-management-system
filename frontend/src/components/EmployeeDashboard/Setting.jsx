@@ -6,13 +6,16 @@ import { useEffect } from "react";
 
 const Setting = () => {
   const navigate = useNavigate();
+  // Access the current logged-in user from the global AuthContext
   const { user } = useAuthContext();
+  // State to manage the password change form fields
   const [setting, setSetting] = useState({
-    userId: null, // Initialize with null or an empty string
+    userId: null, 
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
+  // State to track and display validation or API errors
   const [error, setError] = useState(null);
 
   // Update userId in state once the user object is available

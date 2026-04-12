@@ -8,11 +8,16 @@ import axios from "axios";
 
 
 const DepartmentList = () => {
+  // State to store the full list of departments from the server
   const [departments, setDepartments] = useState([]);
+  // State to manage the loading spinner/status
   const [depLoading, setDepLoading] = useState(false);
+  // Accessing the default export of react-data-table-component
   const DataTable = DataTables.default;
+  // State to store the departments after applying search filters
   const [filteredDepartments, setFilteredDepartments] = useState([]);
 
+  // Callback function to update the UI state when a department is deleted
   const onDepartmentDelete = (id) => {
     setDepartments((prevDeps) => 
       prevDeps.filter((dep) => dep._id !== id).map((dep, index) => ({ ...dep, sno: index + 1 }))
@@ -22,6 +27,7 @@ const DepartmentList = () => {
     );
   };
 
+  // Fetch departments from the backend on component mount
   useEffect(() => {
     const fetchDepartments = async () => {
       setDepLoading(true);
@@ -37,6 +43,7 @@ const DepartmentList = () => {
         if (response.data.success) {
           let sno = 1;
 
+          // Map the raw data to include serial numbers and the delete callback for the action buttons
           const data = response.data.departments.map((dep) => ({
             _id: dep._id,
             sno: sno++,
@@ -58,6 +65,7 @@ const DepartmentList = () => {
     fetchDepartments();
   }, []);
 
+  // Filter the department list based on the search input value
   const filterDepartments = (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const records = departments.filter((dep) =>

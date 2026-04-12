@@ -4,6 +4,12 @@ import getSummary from "../controllers/dashboardController.js";
 
 const router = express.Router();
 
-router.get("/summary", authMiddleware,getSummary)
+/**
+ * @route   GET /api/dashboard/summary
+ * @desc    Retrieves aggregated statistics for the dashboard (counts, salaries, leaves).
+ *          This endpoint is typically used by the Admin dashboard to show an overview.
+ * @access  Private (Requires valid JWT token)
+ */
+router.get("/summary", authMiddleware, getSummary);
 
 export default router;

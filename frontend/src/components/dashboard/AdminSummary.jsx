@@ -14,10 +14,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const AdminSummary = () => {
+  // State to store the dashboard summary data (employees, departments, leaves, etc.)
   const [summary, setSummary] = useState(null);
+  // State to track if the data is currently being fetched
   const [loading, setLoading] = useState(true);
+  // State to store any error messages from the API call
   const [error, setError] = useState(null);
 
+  // Fetch summary data from the backend when the component mounts
   useEffect(() => {
     const fetchSummary = async () => {
       try {
@@ -44,18 +48,21 @@ const AdminSummary = () => {
     fetchSummary();
   }, []);
 
+  // Display a loading state while fetching data
   if (loading) {
     return (
       <div className="flex justify-center items-center h-full">Loading...</div>
     );
   }
 
+  // Display an error message if the API call fails
   if (error) {
     return (
       <div className="flex justify-center items-center h-full text-red-600 font-bold text-xl">Error: {error}</div>
     );
   }
 
+  // Fallback if no data is returned
   if (!summary) {
     return (
       <div className="flex justify-center items-center h-full font-bold text-xl">No Dashboard Data</div>
@@ -68,6 +75,7 @@ const AdminSummary = () => {
         Admin Dashboard
       </h3>
 
+      {/* General Statistics Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         <SummaryCard
           icon={<FaUser />}
@@ -89,6 +97,7 @@ const AdminSummary = () => {
         />
       </div>
 
+      {/* Leave Statistics Section */}
       <div className="mt-10">
         <h3 className="text-center text-3xl font-bold text-slate-700 tracking-tight">
           Leave Details

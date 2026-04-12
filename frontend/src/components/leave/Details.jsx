@@ -17,6 +17,7 @@ const Details = () => {
         },
       });
       if (response.data.success) {
+        // Update state with the specific leave object from the response
         setLeave(response.data.leave);
       }
     } catch (error) {

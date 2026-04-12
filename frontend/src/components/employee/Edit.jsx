@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 
 const Edit = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  // State to store the specific employee fields that are editable
   const [employee, setEmployee] = useState({
     name: "",
     martialStatus: "",
@@ -14,24 +16,11 @@ const Edit = () => {
     salary: 0,
     department: "",
   });
+  // State for error handling and fetching the list of departments for the dropdown
   const [error, setError] = useState(null);
   const [departments, setDepartments] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    employeeId: "",
-    dob: "",
-    gender: "",
-    martialStatus: "",
-    designation: "",
-    department: "",
-    salary: "",
-    password: "",
-    role: "",
-    image: "",
-  });
-  const { id } = useParams();
 
+  // Fetch departments to populate the dropdown menu on component mount
   useEffect(() => {
     const getDepartments = async () => {
       const departments = await fetchDepartments();
@@ -40,6 +29,7 @@ const Edit = () => {
     getDepartments();
   }, []);
 
+  // Fetch the existing employee data from the server using the ID from URL params
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
@@ -52,6 +42,7 @@ const Edit = () => {
           },
         );
         if (response.data.success) {
+          // Map the nested API response to the flat local state structure
           setEmployee((prevEmployee) => ({
             ...prevEmployee,
             name: response.data.employee.userId.name,
@@ -59,7 +50,6 @@ const Edit = () => {
             designation: response.data.employee.designation,
             salary: response.data.employee.salary,
             department: response.data.employee.department._id,
-
           }));
         }
       } catch (error) {
@@ -71,6 +61,7 @@ const Edit = () => {
     fetchEmployee();
   }, []);
 
+  // Update the local state dynamically as the user types in the input fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
@@ -79,6 +70,7 @@ const Edit = () => {
     });
   };
 
+  // Handle the form submission to update employee records via a PUT request
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -107,14 +99,16 @@ const Edit = () => {
         <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-6 lg:px-8">
           <div className="w-full max-w-4xl bg-white p-8 rounded-xl shadow-lg">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-gray-800 mb-8">Edit Employee Details</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-8">
+                Edit Employee Details
+              </h2>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              {/*Name*/}
+                {/*Name*/}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
+                    Name
                   </label>
                   <input
                     type="text"
@@ -123,97 +117,104 @@ const Edit = () => {
                     value={employee.name}
                     placeholder="e.g., Jane Doe"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-                  required
-                />
-              </div>
+                    required
+                  />
+                </div>
 
-              {/*Marital Status*/}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Marital Status
-                </label>
-                <select
-                  name="martialStatus"
-                  onChange={handleChange}
-                  value={employee.martialStatus}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-                  required
-                >
-                  <option value="">Select Marital Status</option>
-                  <option value="single">Single</option>
-                  <option value="married">Married</option>
-                  <option value="divorced">Divorced</option>
-                </select>
-              </div>
+                {/*Marital Status*/}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Marital Status
+                  </label>
+                  <select
+                    name="martialStatus"
+                    onChange={handleChange}
+                    value={employee.martialStatus}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    required
+                  >
+                    <option value="">Select Marital Status</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                  </select>
+                </div>
 
-              {/*Designation*/}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Designation
-                </label>
-                <input
-                  type="text"
-                  name="designation"
-                  onChange={handleChange}
-                  value={employee.designation}
-                  placeholder="e.g., Senior Developer"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-                  required
-                />
-              </div>
+                {/*Designation*/}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Designation
+                  </label>
+                  <input
+                    type="text"
+                    name="designation"
+                    onChange={handleChange}
+                    value={employee.designation}
+                    placeholder="e.g., Senior Developer"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    required
+                  />
+                </div>
 
-              {/*Salary*/}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Salary
-                </label>
-                <input
-                  type="number"
-                  name="salary"
-                  onChange={handleChange}
-                  value={employee.salary}
-                  placeholder="e.g., 75000"
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-                  required
-                />
-              </div>
+                {/*Salary*/}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Salary
+                  </label>
+                  <input
+                    type="number"
+                    name="salary"
+                    onChange={handleChange}
+                    value={employee.salary}
+                    placeholder="e.g., 75000"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    required
+                  />
+                </div>
 
-              {/*Department*/}
-              <div> {/* Removed col-span-2 to keep consistent two-column layout for smaller screens */}
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Department
-                </label>
-                <select
-                  name="department"
-                  onChange={handleChange}
-                  value={employee.department}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-                  required
-                >
-                  <option value="">Select Department</option>
-                  {departments.map((dep) => (
-                    <option key={dep._id} value={dep._id}>
-                      {dep.dep_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                {/*Department*/}
+                <div>
+                  {" "}
+                  {/* Removed col-span-2 to keep consistent two-column layout for smaller screens */}
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Department
+                  </label>
+                  <select
+                    name="department"
+                    onChange={handleChange}
+                    value={employee.department}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    required
+                  >
+                    <option value="">Select Department</option>
+                    {departments.map((dep) => (
+                      <option key={dep._id} value={dep._id}>
+                        {dep.dep_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-              <div className="md:col-span-2 pt-4"> {/* Button spans full width on medium screens and up */}
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
-                >
-                  Update Employee
-                </button>
-              </div>
+                <div className="md:col-span-2 pt-4">
+                  {" "}
+                  {/* Button spans full width on medium screens and up */}
+                  <button
+                    type="submit"
+                    className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+                  >
+                    Update Employee
+                  </button>
+                </div>
               </div>
             </form>
           </div>
         </div>
-      ) : ( // Consistent loading state
+      ) : (
+        // Consistent loading state
         <div className="flex justify-center items-center min-h-screen">
-          <div className="text-lg font-semibold text-gray-600">Loading employee details...</div>
+          <div className="text-lg font-semibold text-gray-600">
+            Loading employee details...
+          </div>
         </div>
       )}{" "}
     </>

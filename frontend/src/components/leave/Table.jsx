@@ -4,12 +4,16 @@ import DataTables from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
 const Table = () => {
+  // State to store the full list of leave records from the server
   const [leaves, setLeaves] = useState([]);
+  // State to store the leave records after applying search or status filters
   const [filteredLeaves, setFilteredLeaves] = useState([]);
+  // State to manage the loading spinner/status
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const DataTable = DataTables.default;
 
+  // Fetch all leave records from the backend (Admin view)
   const fetchLeaves = async () => {
     setLoading(true);
     try {
@@ -20,6 +24,7 @@ const Table = () => {
       });
       if (response.data.success) {
         let sno = 1;
+        // Map the raw data to include serial numbers and calculate duration for the table
         const data = response.data.leaves.map((leave) => ({
           _id: leave._id,
           sno: sno++,
@@ -49,6 +54,7 @@ const Table = () => {
     fetchLeaves();
   }, []);
 
+  // Filter the leave list based on the search input value (by name or employee ID)
   const handleFilter = (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filtered = leaves.filter(
@@ -59,6 +65,7 @@ const Table = () => {
     setFilteredLeaves(filtered);
   };
 
+  // Filter the leave list based on the status buttons (Pending, Approved, etc.)
   const filterByStatus = (status) => {
     if (status === "All") {
       setFilteredLeaves(leaves);
@@ -68,6 +75,7 @@ const Table = () => {
     }
   };
 
+  // Define table columns for the Data Table
   const columns = [
     {
       name: "S No",

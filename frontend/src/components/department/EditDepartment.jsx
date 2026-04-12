@@ -4,15 +4,19 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
 const EditDepartment = () => {
+  // Extract the department ID from the URL parameters
   const { id } = useParams();
-  const [department, setDepartment] = useState([]);
-  const[depLoading, setDepLoading] = useState(false);
+  // State to hold the department details being edited
+  const [department, setDepartment] = useState({
+    dep_name: "",
+    description: "",
+  });
+  // State to track the loading status of the fetch request
+  const [depLoading, setDepLoading] = useState(false);
   const navigate = useNavigate();
 
-
+  // Fetch the existing department details when the component mounts or ID changes
   useEffect(() => {
     const fetchDepartment = async () => {
       setDepLoading(true);
@@ -28,7 +32,7 @@ const EditDepartment = () => {
         if (response.data.success) {
           setDepartment(response.data.department);
         }
-      }catch (error) {
+      } catch (error) {
         if (error.response && !error.response.data.success) {
           alert(error.response.data.error);
         }
@@ -39,6 +43,7 @@ const EditDepartment = () => {
     fetchDepartment();
   }, [id]);
 
+  // Update the department state as the user types in the input fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDepartment({
@@ -47,25 +52,28 @@ const EditDepartment = () => {
     });
   };
 
+  // Handle the form submission to update the department via the API
   const handleSubmit = async (e) => {
-            e.preventDefault()
-        try {  
-            const response = await axios.put(`http://localhost:5000/api/department/${id}`, department,{
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
-                }
-            })
-            if(response.data.success){
-                navigate("/admin-dashboard/departments")
-            }
-        } catch (error) {
-            if(error.response && !error.response.data.success){
-                alert(error.response.data.error)
-            }
-        }
-
-    };
-
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/department/${id}`,
+        department,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
+      );
+      if (response.data.success) {
+        navigate("/admin-dashboard/departments");
+      }
+    } catch (error) {
+      if (error.response && !error.response.data.success) {
+        alert(error.response.data.error);
+      }
+    }
+  };
 
   return (
     <>

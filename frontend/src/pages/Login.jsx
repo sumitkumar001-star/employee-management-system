@@ -39,12 +39,12 @@ const Login = () => {
         }
       } else {
         // Handle cases where status is 200 but the backend signals a failure.
-        setError(data.message || "Login failed. Please try again.");
+        setError(data.error || "Login failed. Please try again.");
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (error.response && error.response.data && error.response.data.error) {
         // Set error message from backend response
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       } else {
         // Fallback for network errors or other unexpected issues
         setError("An unexpected error occurred. Please try again.");

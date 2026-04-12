@@ -4,10 +4,14 @@ import axios from "axios";
 import { useEffect } from "react";
    
 const View = () => {
-  const { id } = useParams();
+  // Extract the employee ID from the URL parameters
+  const { id } = useParams(); 
+  // State to store the fetched employee data
   const [employee, setEmployee] = useState(null);
+  // State to store any error messages during data fetching
   const [error, setError] = useState(null);
 
+  // Fetch employee details from the backend when the component mounts or ID changes
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
@@ -20,10 +24,12 @@ const View = () => {
           },
         );
         if(response.data.success) {
+          // Update state with the employee object from the response
           setEmployee(response.data.employee);
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
+          // Capture and display error messages from the server
           setError(error.response.data.error);
         }
       }
@@ -34,6 +40,7 @@ const View = () => {
   return (
     <div className="bg-slate-50 min-h-full p-4 sm:p-6 lg:p-8">
       {error ? (
+        /* Error State UI */
         <div className="max-w-2xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-lg text-center">
           <h3 className="text-2xl font-bold text-red-600">An Error Occurred</h3>
           <p className="mt-4 text-lg text-slate-700">{error}</p>
@@ -45,6 +52,7 @@ const View = () => {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            {/* Profile Image Section */}
             <div className="flex justify-center md:col-span-1">
               <img
                 src={`http://localhost:5000/${employee.userId?.profilePicture}`}
@@ -53,6 +61,7 @@ const View = () => {
               />
             </div>
 
+            {/* Employee Details List */}
             <div className="md:col-span-2">
               <div className="flow-root">
                 <dl className="-my-4 divide-y divide-slate-200">
@@ -100,6 +109,7 @@ const View = () => {
           </div>
         </div>
       ) : (
+        /* Loading State UI */
         <div className="flex justify-center items-center h-96">
           <div className="text-xl font-semibold text-gray-500">
             Loading Employee Profile...

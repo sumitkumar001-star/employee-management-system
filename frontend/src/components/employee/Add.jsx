@@ -6,7 +6,9 @@ import axios from "axios";
 
 const Add = () => {
   const navigate = useNavigate();
+  // State to store the list of departments fetched from the server
   const [departments, setDepartments] = useState([]);
+  // State to manage all form fields for a new employee
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +25,7 @@ const Add = () => {
   });
 
   useEffect(() => {
+    // Fetch departments to populate the department dropdown on component mount
     const getDepartments = async () => {
       const departments = await fetchDepartments();
       setDepartments(departments);
@@ -30,9 +33,11 @@ const Add = () => {
     getDepartments();
   }, []);
 
+  // Update state dynamically based on input field name; handles files separately
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "image") {
+      // Store the file object for the profile image
       setFormData({
         ...formData,
         [name]: files[0],
@@ -45,14 +50,17 @@ const Add = () => {
     }
   };
 
+  // Handle form submission using FormData to support file uploads
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObj = new FormData();
+    // Append all state fields into the FormData object
     Object.keys(formData).forEach((key) => {
       formDataObj.append(key, formData[key]);
     });
 
     try {
+      // Send a POST request with the employee data and authorization token
       const response = await axios.post(
         "http://localhost:5000/api/employee/add",
         formDataObj,
@@ -62,10 +70,12 @@ const Add = () => {
           },
         },
       );
+      // If successful, redirect the user back to the employee list
       if (response.data.success) {
         navigate("/admin-dashboard/employees");
       }
     } catch (error) {
+      // Display error message if the request fails
       if (error.response && !error.response.data.success) {
         alert(error.response.data.error);
       }

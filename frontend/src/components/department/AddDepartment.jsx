@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddDepartment = () => {
+  // State to hold the department form data
   const [department, setDepartment] = useState({
     dep_name: "",
     description: "",
@@ -11,6 +12,7 @@ const AddDepartment = () => {
 
   const navigate = useNavigate();
 
+  // Update the state dynamically based on input field name
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDepartment({
@@ -19,9 +21,11 @@ const AddDepartment = () => {
     });
   };
 
+  // Handle form submission to the backend API
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send a POST request with the department data and authorization token
       const response = await axios.post(
         "http://localhost:5000/api/department/add",
         department,
@@ -31,10 +35,12 @@ const AddDepartment = () => {
           },
         },
       );
+      // If successful, redirect the user back to the department list
       if (response.data.success) {
         navigate("/admin-dashboard/departments");
       }
     } catch (error) {
+      // Display error message if the request fails
       if (error.response && !error.response.data.success) {
         alert(error.response.data.error);
       }

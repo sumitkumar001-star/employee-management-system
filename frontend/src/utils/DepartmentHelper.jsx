@@ -10,10 +10,11 @@ const columns = [
     cell: (row) => <div className="text-center w-full">{row.sno}</div>, // Ensure cell content is centered
   },
   {
-    name: <div className="text-center w-full">Department Name</div>, // Custom header for centering
+    // Column for the department name with sorting enabled
+    name: <div className="text-center w-full">Department Name</div>,
     selector: (row) => row.dep_name,
     sortable: true,
-    cell: (row) => <div className="text-center w-full">{row.dep_name}</div>, // Ensure cell content is centered
+    cell: (row) => <div className="text-center w-full">{row.dep_name}</div>,
   },
   {
     name: <div className="text-center w-full">Action</div>, // Custom header for centering

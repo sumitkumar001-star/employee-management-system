@@ -2,16 +2,23 @@ import Employee from "../models/Employee.js";
 import Department from "../models/Department.js";
 import Leave from "../models/Leave.js";
 
+/**
+ * Fetches a summary of statistics for the admin dashboard,
+ * including employee counts, department counts, total salary expenditure,
+ * and leave application statistics.
+ */
 const getSummary = async (req, res) => {
   try {
+    // Count total number of employees and departments in the database
     const totalEmployees = await Employee.countDocuments();
     const totalDepartments = await Department.countDocuments();
 
+    // Calculate the sum of all employee salaries using MongoDB aggregation
     const totalSalaries = await Employee.aggregate([
       { $group: { _id: null, totalSalary: { $sum: "$salary" } } },
     ]);
-    const employeeAppliedForLeave = await Leave.distinct("employeeId");
 
+    // Group leave records by their status (Pending, Approved, Rejected) to get counts for each
     const leaveStats = await Leave.aggregate([
       {
         $group: {
@@ -21,6 +28,11 @@ const getSummary = async (req, res) => {
       },
     ]);
 
+    // Get the count of unique employees who have applied for at least one leave
+    const employeeAppliedForLeave = await Leave.distinct("employeeId");
+
+    // Map the aggregation results into a structured summary object
+    // Handles both capitalized and lowercase status strings for robustness
     const leaveSummary = {
       appliedFor: employeeAppliedForLeave.length,
       approved:
@@ -37,6 +49,7 @@ const getSummary = async (req, res) => {
         )?.count || 0,
     };
 
+    // Return the compiled statistics to the frontend
     return res.status(200).json({
       success: true,
       totalEmployees,
@@ -45,6 +58,7 @@ const getSummary = async (req, res) => {
       leaveSummary,
     });
   } catch (error) {
+    console.error("Dashboard Summary Error:", error);
     return res
       .status(500)
       .json({ success: false, error: "Get summary server error" });

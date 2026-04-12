@@ -5,6 +5,10 @@ import bcrypt from "bcrypt";
 import multer from "multer";
 import Department from "../models/Department.js";
 
+/**
+ * Configures Multer storage settings.
+ * Files are stored in 'public/uploads' with a unique timestamp-based filename.
+ */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/uploads");
@@ -15,8 +19,16 @@ const storage = multer.diskStorage({
   },
 });
 
+// Middleware instance for handling multipart/form-data (file uploads)
 const upload = multer({ storage: storage });
 
+/**
+ * Adds a new employee to the system.
+ * 1. Checks if a user with the provided email already exists.
+ * 2. If not, creates a new User record (with hashed password and profile image).
+ * 3. Creates a corresponding Employee record linked to that User.
+ * Returns success message or error if employee already exists.
+ */
 const addEmployee = async (req, res) => {
   try {
     const {
@@ -80,6 +92,10 @@ const addEmployee = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves all employees from the database.
+ * Populates 'userId' (excluding password) and 'department' details for each employee.
+ */
 const getEmployees = async (req, res) => {
   try {
     const employees = await Employee.find()
@@ -93,6 +109,11 @@ const getEmployees = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves a single employee by ID.
+ * Supports lookup by either the Employee document ID or the linked User ID.
+ * Returns the populated employee object or a 404 error if not found.
+ */
 const getEmployee = async (req, res) => {
   const { id } = req.params;
   try {
@@ -115,6 +136,11 @@ const getEmployee = async (req, res) => {
   }
 };
 
+/**
+ * Updates an existing employee's information.
+ * Updates the 'name' in the User collection and professional details 
+ * (designation, salary, etc.) in the Employee collection.
+ */
 const updateEmployee = async (req, res) => {
   const { id } = req.params;
   try {
@@ -158,6 +184,10 @@ const updateEmployee = async (req, res) => {
   }
 };
 
+/**
+ * Fetches a list of employees belonging to a specific department.
+ * The department ID is passed as a URL parameter.
+ */
 const fetchEmployeesByDepId = async (req, res) => {
   const { id } = req.params;
   try {

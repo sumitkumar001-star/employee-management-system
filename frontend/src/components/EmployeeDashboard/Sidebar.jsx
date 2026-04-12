@@ -10,6 +10,11 @@ import {
 } from "react-icons/fa";
 
 const Sidebar = () => {
+  /**
+   * Helper function to handle active/inactive styling for NavLinks.
+   * React Router's NavLink provides an 'isActive' boolean in its className callback.
+   * @param {Object} params - Contains isActive boolean
+   */
   const navLinkClass = ({ isActive }) =>
     `flex items-center space-x-3 rounded-md px-4 py-2.5 text-sm font-medium transition-colors duration-200 ease-in-out ${
       isActive
@@ -18,6 +23,7 @@ const Sidebar = () => {
     }`;
   const { user } = useAuthContext();
 
+  // Configuration for sidebar navigation items to keep the component clean and maintainable
   const navLinks = [
     { to: "/employee-dashboard", icon: <FaTachometerAlt />, text: "Dashboard", end: true },
     { to: `/employee-dashboard/profile/${user._id}`, icon: <FaUsers />, text: "My Profile" },
@@ -28,10 +34,12 @@ const Sidebar = () => {
 
   return (
     <aside className="bg-blue-800 text-white w-64 h-screen fixed left-0 top-0 flex flex-col">
+      {/* Sidebar Header / Logo Section */}
       <div className="bg-blue-900 h-16 flex items-center justify-center px-4 shadow-lg">
         <h2 className="text-2xl text-center font-bold tracking-wider">ANDRITZ</h2>
       </div>
       <nav className="flex-1 px-3 py-4 space-y-2">
+        {/* Map through the navLinks array to generate navigation items dynamically */}
         {navLinks.map((link) => (
           <NavLink
             key={link.to}

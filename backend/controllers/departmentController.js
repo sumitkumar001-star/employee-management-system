@@ -1,7 +1,10 @@
 import Department from "../models/Department.js";
 
 
-
+/**
+ * Retrieves all department records from the database.
+ * Returns a list of departments or a 500 error if the database query fails.
+ */
 const getDepartments = async (req, res) => {
   try {
     const departments = await Department.find();
@@ -13,6 +16,11 @@ const getDepartments = async (req, res) => {
   }
 };
 
+/**
+ * Creates a new department record.
+ * Expects dep_name and description in the request body.
+ * Returns the newly created department object on success.
+ */
 const addDepartment = async (req, res) => {
   try {
     const { dep_name, description } = req.body;
@@ -29,6 +37,11 @@ const addDepartment = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves a single department by its unique ID.
+ * The ID is expected as a URL parameter.
+ * Returns the department object or a 500 error if not found/error occurs.
+ */
 const getDepartment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -41,7 +54,11 @@ const getDepartment = async (req, res) => {
   }
 };
 
-
+/**
+ * Updates an existing department's details.
+ * Finds the department by ID and updates its name and description.
+ * { new: true } ensures the updated document is returned in the response.
+ */
 const updateDepartment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -53,6 +70,11 @@ const updateDepartment = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a department from the database.
+ * First checks if the department exists, then performs the deletion.
+ * Returns a success message or a 404/500 error status.
+ */
 const deleteDepartment = async (req, res) => {
         try {
       const { id } = req.params;

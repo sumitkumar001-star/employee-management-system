@@ -6,6 +6,7 @@ import axios from "axios";
 const Add = () => {
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  // State to manage the leave request form data
   const [leave, setLeave] = useState({
     userId: user._id,
     leaveType: "",
@@ -14,14 +15,17 @@ const Add = () => {
     reason: "",
   });
 
+  // Update the state dynamically based on input field name
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLeave((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  // Handle form submission to the backend API
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send a POST request with the leave data and authorization token
       const response = await axios.post(
         `http://localhost:5000/api/leave/add`,
         leave,
@@ -31,10 +35,12 @@ const Add = () => {
           },
         },
       );
+      // If successful, redirect the user back to their leave list
       if (response.data.success) {
         navigate("/employee-dashboard/leaves");
       }
     } catch (error) {
+      // Display error message if the request fails
       if (error.response && !error.response.data.success) {
         alert(error.response.data.error);
       }

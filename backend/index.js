@@ -15,7 +15,10 @@ connectDB();
 const app = express();
 
 // Enable Cross-Origin Resource Sharing for frontend-backend communication
-app.use(cors());
+app.use(cors({
+  origin: "https://employee-management-system-pink-iota.vercel.app",
+  credentials: true
+}));
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());

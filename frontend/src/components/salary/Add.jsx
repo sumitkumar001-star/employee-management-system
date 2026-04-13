@@ -41,7 +41,7 @@ const AddSalary = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/employee/${id}`,
+          `https://employee-management-system-wjrt.vercel.app/api/employee/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -94,7 +94,7 @@ const AddSalary = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/salary/add`,
+        `https://employee-management-system-wjrt.vercel.app/api/salary/add`,
         employee,
         {
           headers: {

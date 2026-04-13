@@ -102,7 +102,7 @@ const List = () => {
       setEmpLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/leave/employee/${employeeId}`,
+          `https://employee-management-system-wjrt.vercel.app/api/leave/employee/${employeeId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

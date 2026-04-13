@@ -26,7 +26,7 @@ const AdminSummary = () => {
     const fetchSummary = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/dashboard/summary", // Ensure this endpoint returns { totalEmployees, totalDepartments, totalSalary, leaveSummary: { appliedFor, approved, pending, rejected } }
+          "https://employee-management-system-wjrt.vercel.app/api/dashboard/summary", // Ensure this endpoint returns { totalEmployees, totalDepartments, totalSalary, leaveSummary: { appliedFor, approved, pending, rejected } }
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

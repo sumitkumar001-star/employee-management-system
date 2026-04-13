@@ -27,7 +27,7 @@ const AddDepartment = () => {
     try {
       // Send a POST request with the department data and authorization token
       const response = await axios.post(
-        "http://localhost:5000/api/department/add",
+        "https://employee-management-system-wjrt.vercel.app/api/department/add",
         department,
         {
           headers: {

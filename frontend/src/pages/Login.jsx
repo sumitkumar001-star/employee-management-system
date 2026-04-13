@@ -15,7 +15,7 @@ const Login = () => {
     setError(""); // Clear previous errors on a new submission
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://employee-management-system-wjrt.vercel.app/api/auth/login",
         {
           email,
           password,

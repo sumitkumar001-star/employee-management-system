@@ -27,7 +27,7 @@ const Add = () => {
     try {
       // Send a POST request with the leave data and authorization token
       const response = await axios.post(
-        `http://localhost:5000/api/leave/add`,
+        `https://employee-management-system-wjrt.vercel.app/api/leave/add`,
         leave,
         {
           headers: {

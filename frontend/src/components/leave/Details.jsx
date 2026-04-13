@@ -11,7 +11,7 @@ const Details = () => {
     try {
       
       setLoading(true); // Ensure loading is true before fetch
-      const response = await axios.get(`http://localhost:5000/api/leave/${id}`, {
+      const response = await axios.get(`https://employee-management-system-wjrt.vercel.app/api/leave/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,7 +38,7 @@ const Details = () => {
   const changeStatus = async (status) => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/leave/${id}`,
+        `https://employee-management-system-wjrt.vercel.app/api/leave/${id}`,
         { status },
         {
           headers: {

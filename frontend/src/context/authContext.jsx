@@ -27,7 +27,7 @@ const AuthContext = ({ children }) => {
         }
 
         // Call the backend to verify the token and get user details
-        const response = await axios.get('http://localhost:5000/api/auth/verify',{
+        const response = await axios.get('https://employee-management-system-wjrt.vercel.app/api/auth/verify',{
           headers:{
             Authorization: `Bearer ${token}`
           }

@@ -30,7 +30,7 @@ const DepartmentButtons = ({ id, onDepartmentDelete: onDepartmentDeleteProp }) =
       return;
     }
     try {
-      const response = await axios.delete(`http://localhost:5000/api/department/${depId}`, {
+      const response = await axios.delete(`https://employee-management-system-wjrt.vercel.app/api/department/${depId}`, {
         headers: { 
           Authorization: `Bearer ${localStorage.getItem("token")}`
         },

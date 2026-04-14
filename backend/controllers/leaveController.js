@@ -54,7 +54,7 @@ const getLeaves = async (req, res) => {
       path: "employeeId",
       populate: [
         { path: "department" },
-        { path: "userId", select: "name profileImage" },
+        { path: "userId", select: "name profilePicture" },
       ],
     });
     return res.status(200).json({ success: true, leaves });
@@ -86,7 +86,7 @@ const getEmployeeLeaves = async (req, res) => {
       path: "employeeId",
       populate: [
         { path: "department" },
-        { path: "userId", select: "name profileImage" },
+        { path: "userId", select: "name profilePicture" },
       ],
     });
     return res.status(200).json({ success: true, leaves });

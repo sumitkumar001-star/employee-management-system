@@ -212,8 +212,9 @@ const List = () => {
   return (
     <>
       {empLoading ? (
-        <div className="flex justify-center items-center min-h-[400px]">
-          <div className="text-base sm:text-lg font-semibold text-gray-600 animate-pulse">
+        <div className="flex flex-col justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-4 border-teal-500 mb-4"></div>
+          <div className="text-sm sm:text-lg md:text-xl font-semibold text-slate-500 tracking-wide animate-pulse">
             Loading Employees...
           </div>
         </div>

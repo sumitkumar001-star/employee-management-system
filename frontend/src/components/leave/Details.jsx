@@ -62,8 +62,8 @@ const Details = () => {
     <div className="bg-slate-50 min-h-full p-4 sm:p-6 lg:p-8">
       {loading ? (
         <div className="flex flex-col justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500 mb-4"></div>
-          <div className="text-xl font-semibold text-slate-500 tracking-wide">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-4 border-teal-500 mb-4"></div>
+          <div className="text-sm sm:text-lg md:text-xl font-semibold text-slate-500 tracking-wide animate-pulse">
             Loading Leave Details...
           </div>
         </div>

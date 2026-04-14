@@ -1,4 +1,3 @@
-import path from "path";
 import Employee from "../models/Employee.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
@@ -6,18 +5,10 @@ import multer from "multer";
 import Department from "../models/Department.js";
 
 /**
- * Configures Multer storage settings.
- * Files are stored in 'public/uploads' with a unique timestamp-based filename.
+ * Configures Multer to store files in memory as buffers.
+ * This is necessary for serverless environments like Vercel which have ephemeral/read-only filesystems.
  */
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads/");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
+const storage = multer.memoryStorage();
 
 // Middleware instance for handling multipart/form-data (file uploads)
 const upload = multer({ storage: storage });
@@ -43,11 +34,9 @@ const addEmployee = async (req, res) => {
       salary,
       password,
       role,
-      image,
     } = req.body;
 
     let user = await User.findOne({ email });
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     if (user) {
       const existingEmployee = await Employee.findOne({ userId: user._id });
@@ -58,12 +47,22 @@ const addEmployee = async (req, res) => {
         });
       }
     } else {
+      let profilePictureData = "";
+      const hashedPassword = await bcrypt.hash(password, 10);
+      if (req.file) {
+        // Convert the image buffer to a Base64 string to store in the database
+        const mimeType = req.file.mimetype;
+        const buffer = req.file.buffer;
+        profilePictureData = `data:${mimeType};base64,${buffer.toString(
+          "base64"
+        )}`;
+      }
       user = new User({
         name,
         email,
         password: hashedPassword,
         role,
-        profilePicture: req.file ? req.file.filename : "",
+        profilePicture: profilePictureData,
       });
       await user.save();
     }
@@ -72,7 +71,6 @@ const addEmployee = async (req, res) => {
       userId: user._id,
       employeeId: employeeId,
       gmail: email,
-      password: hashedPassword,
       dob,
       gender,
       martialStatus,
@@ -144,40 +142,50 @@ const getEmployee = async (req, res) => {
 const updateEmployee = async (req, res) => {
   const { id } = req.params;
   try {
-    const { name, martialStatus, designation, department, salary } = req.body;
+    const { name, martialStatus, designation, department, salary } =
+      req.body;
 
-    const employee = await Employee.findById({ _id: id });
+    const employee = await Employee.findById(id);
     if (!employee) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Employee not found" });
-    }
-    const user = await User.findById({ _id: employee.userId });
-    if (!user) {
-      return res.status(400).json({ success: false, error: "User not found" });
-    }
-    const updateUser = await User.findByIdAndUpdate(
-      { _id: user._id },
-      { name },
-    );
-    const updateEmployee = await Employee.findByIdAndUpdate(
-      { _id: id },
-      {
-        martialStatus,
-        designation,
-        department,
-        salary,
-      },
-    );
-    if (!updateEmployee || !updateUser) {
       return res
         .status(404)
         .json({ success: false, error: "Employee not found" });
+    }
+
+    // Prepare updates for the User model (name and new profile picture if provided)
+    const userUpdateData = { name };
+    if (req.file) {
+      const mimeType = req.file.mimetype;
+      const buffer = req.file.buffer;
+      userUpdateData.profilePicture = `data:${mimeType};base64,${buffer.toString(
+        "base64"
+      )}`;
+    }
+
+    // Prepare updates for the Employee model
+    const employeeUpdateData = {
+      martialStatus,
+      designation,
+      department,
+      salary,
+    };
+
+    // Update both User and Employee documents concurrently
+    const [updatedUser, updatedEmployee] = await Promise.all([
+      User.findByIdAndUpdate(employee.userId, userUpdateData, { new: true }),
+      Employee.findByIdAndUpdate(id, employeeUpdateData, { new: true }),
+    ]);
+
+    if (!updatedEmployee || !updatedUser) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Could not update employee details" });
     }
     return res
       .status(200)
       .json({ success: true, message: "Employee updated successfully" });
   } catch (error) {
+    console.error("Update Employee Error:", error);
     return res
       .status(500)
       .json({ success: false, error: "update employee server error" });

@@ -17,6 +17,29 @@ const List = () => {
   // State to manage the loading spinner/status
   const [empLoading, setEmpLoading] = useState(false);
 
+  // Handle the deletion of an employee
+  const handleDelete = async (id) => {
+    // Confirm with the user before deleting
+    if (window.confirm("Are you sure you want to delete this employee? This will also remove their user account, leave history, and salary records. This action cannot be undone.")) {
+      try {
+        const response = await axios.delete(`https://employee-management-system-wjrt.vercel.app/api/employee/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (response.data.success) {
+          // Refresh the employee list by filtering out the deleted employee
+          setEmployees(prev => prev.filter(emp => emp._id !== id));
+          setFilteredEmployees(prev => prev.filter(emp => emp._id !== id));
+          alert("Employee deleted successfully.");
+        }
+      } catch (error) {
+        const errorMessage = error.response?.data?.error || "An error occurred while deleting the employee.";
+        alert(errorMessage);
+      }
+    }
+  };
+
   // Fetch employees from the backend on component mount
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -48,8 +71,19 @@ const List = () => {
                 alt={emp.userId?.name}
               />
             ),
-            // Action buttons (View, Edit, etc.) are typically injected here via Helper
-            action: <div></div>,
+            // Action buttons for each employee row
+            action: (
+              <div className="flex items-center gap-2">
+                <Link to={`/admin-dashboard/employee/view/${emp._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
+                  View
+                </Link>
+                <Link to={`/admin-dashboard/employee/edit/${emp._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
+                  Edit
+                </Link>
+                <button onClick={() => handleDelete(emp._id)} className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors">
+                  Delete
+                </button>
+              </div>),
           }));
           setEmployees(data);
           setFilteredEmployees(data);

@@ -9,52 +9,57 @@ import Leave from "../models/Leave.js";
  */
 const getSummary = async (req, res) => {
   try {
-    // Count total number of employees and departments in the database
-    const totalEmployees = await Employee.countDocuments();
-    const totalDepartments = await Department.countDocuments();
+    // Concurrently execute all database queries for maximum efficiency
+    const [
+      totalDepartments,
+      employeeStats,
+      leaveData,
+    ] = await Promise.all([
+      // Query 1: Count total departments
+      Department.countDocuments(),
 
-    // Calculate the sum of all employee salaries using MongoDB aggregation
-    const totalSalaries = await Employee.aggregate([
-      { $group: { _id: null, totalSalary: { $sum: "$salary" } } },
-    ]);
-
-    // Group leave records by their status (Pending, Approved, Rejected) to get counts for each
-    const leaveStats = await Leave.aggregate([
-      {
-        $group: {
-          _id: "$status",
-          count: { $sum: 1 },
+      // Query 2: Aggregate total employees and total salary in a single pipeline
+      Employee.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalEmployees: { $sum: 1 },
+            totalSalary: { $sum: "$salary" },
+          },
         },
-      },
+      ]),
+
+      // Query 3: Use $facet to get leave counts by status and distinct employees in one pipeline
+      Leave.aggregate([
+        {
+          $facet: {
+            byStatus: [{ $group: { _id: "$status", count: { $sum: 1 } } }],
+            distinctEmployees: [
+              { $group: { _id: "$employeeId" } },
+              { $count: "count" },
+            ],
+          },
+        },
+      ]),
     ]);
 
-    // Get the count of unique employees who have applied for at least one leave
-    const employeeAppliedForLeave = await Leave.distinct("employeeId");
+    // Process the results from the aggregation pipelines
+    const employeeSummary = employeeStats[0] || { totalEmployees: 0, totalSalary: 0 };
+    const leaveStats = leaveData[0];
 
-    // Map the aggregation results into a structured summary object
-    // Handles both capitalized and lowercase status strings for robustness
     const leaveSummary = {
-      appliedFor: employeeAppliedForLeave.length,
-      approved:
-        leaveStats.find(
-          (item) => item._id === "Approved" || item._id === "approved",
-        )?.count || 0,
-      rejected:
-        leaveStats.find(
-          (item) => item._id === "Rejected" || item._id === "rejected",
-        )?.count || 0,
-      pending:
-        leaveStats.find(
-          (item) => item._id === "Pending" || item._id === "pending",
-        )?.count || 0,
+      appliedFor: leaveStats.distinctEmployees[0]?.count || 0,
+      approved: leaveStats.byStatus.find(item => item._id.toLowerCase() === "approved")?.count || 0,
+      rejected: leaveStats.byStatus.find(item => item._id.toLowerCase() === "rejected")?.count || 0,
+      pending: leaveStats.byStatus.find(item => item._id.toLowerCase() === "pending")?.count || 0,
     };
 
     // Return the compiled statistics to the frontend
     return res.status(200).json({
       success: true,
-      totalEmployees,
+      totalEmployees: employeeSummary.totalEmployees,
       totalDepartments,
-      totalSalary: totalSalaries[0]?.totalSalary || 0,
+      totalSalary: employeeSummary.totalSalary,
       leaveSummary,
     });
   } catch (error) {

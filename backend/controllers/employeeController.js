@@ -3,6 +3,8 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import multer from "multer";
 import Department from "../models/Department.js";
+import Leave from "../models/Leave.js";
+import Salary from "../models/Salary.js";
 
 /**
  * Configures Multer to store files in memory as buffers.
@@ -215,6 +217,49 @@ const fetchEmployeesByDepId = async (req, res) => {
   }
 };
 
+/**
+ * Deletes an employee and all their associated data (User, Leaves, Salary).
+ * This is a protected action, intended for admins.
+ * It ensures data integrity by removing all related records when an employee is deleted.
+ */
+const deleteEmployee = async (req, res) => {
+  // Ensure only an admin can perform this action.
+  if (req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ success: false, error: "Forbidden: Only admins can perform this action." });
+  }
+
+  const { id } = req.params; // This is the Employee document ID
+  try {
+    // 1. Find the employee to get their associated User ID and to ensure they exist.
+    const employee = await Employee.findById(id);
+    if (!employee) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Employee not found" });
+    }
+
+    // 2. Concurrently delete the employee and all their related data.
+    await Promise.all([
+      User.findByIdAndDelete(employee.userId),
+      Leave.deleteMany({ employeeId: employee._id }),
+      Salary.deleteMany({ employeeId: employee._id }),
+      Employee.findByIdAndDelete(id),
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      message: "Employee and all related data deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete Employee Error:", error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Server error while deleting employee" });
+  }
+};
+
 export {
   addEmployee,
   upload,
@@ -222,4 +267,5 @@ export {
   getEmployee,
   updateEmployee,
   fetchEmployeesByDepId,
+  deleteEmployee,
 };

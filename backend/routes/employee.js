@@ -1,5 +1,5 @@
 import express from "express";
-import { addEmployee, upload, getEmployees, getEmployee , updateEmployee, fetchEmployeesByDepId} from "../controllers/employeeController.js";
+import { addEmployee, upload, getEmployees, getEmployee , updateEmployee, fetchEmployeesByDepId, deleteEmployee} from "../controllers/employeeController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
 
@@ -42,5 +42,12 @@ router.put("/:id", authMiddleware, upload.single("image"), updateEmployee);
  * @access  Private
  */
 router.get("/department/:id", authMiddleware, fetchEmployeesByDepId);
+
+/**
+ * @route   DELETE /api/employee/:id
+ * @desc    Deletes an employee and all their associated data.
+ * @access  Private (Admin)
+ */
+router.delete("/:id", authMiddleware, deleteEmployee);
 
 export default router;

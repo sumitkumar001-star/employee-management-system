@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 
 
 const List = () => {
@@ -143,10 +143,10 @@ const List = () => {
     doc.setTextColor(100);
     doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 28);
 
-    const tableData = filteredEmployees.map((emp) => [emp.sno, emp.name, emp.dep_name, emp.dob]);
+    const tableData = filteredEmployees.map((emp) => [emp.sno, "", emp.name, emp.dep_name, emp.dob]);
     
-    doc.autoTable({
-      head: [["S No.", "Full Name", "Department Name", "Date of Birth"]], // Customized Headers
+    autoTable(doc, {
+      head: [["S No.", "Profile", "Full Name", "Department Name", "Date of Birth"]], // Customized Headers
       body: tableData,
       startY: 35, // Pushed down to make room for the title and logo
       headStyles: {
@@ -157,9 +157,38 @@ const List = () => {
       alternateRowStyles: {
         fillColor: [240, 253, 250], // Light teal/gray for zebra striping
       },
+      bodyStyles: {
+        minCellHeight: 15, // Increase row height to fit the images
+        valign: 'middle',
+      },
       styles: {
         fontSize: 10,
         cellPadding: 4,
+      },
+      columnStyles: {
+        0: { cellWidth: 15, halign: 'center' }, // S No.
+        1: { cellWidth: 20, halign: 'center' }, // Profile Image
+        2: { cellWidth: 60 },                   // Full Name
+        3: { cellWidth: 55 },                   // Department Name
+        4: { cellWidth: 35, halign: 'center' }, // Date of Birth
+      },
+      didDrawCell: (data) => {
+        // Hook to draw images inside the "Profile" column (index 1)
+        if (data.section === 'body' && data.column.index === 1) {
+          const emp = filteredEmployees[data.row.index];
+          if (emp.profilePicture) {
+            try {
+              // Center the image horizontally and vertically inside the cell
+              const imgWidth = 11;
+              const imgHeight = 11;
+              const xPos = data.cell.x + (data.cell.width - imgWidth) / 2;
+              const yPos = data.cell.y + (data.cell.height - imgHeight) / 2;
+              doc.addImage(emp.profilePicture, xPos, yPos, imgWidth, imgHeight);
+            } catch (err) {
+              console.error("Failed to add image to PDF", err);
+            }
+          }
+        }
       }
     });
     doc.save("Employee_List.pdf");
@@ -186,6 +215,7 @@ const List = () => {
             dep_name: emp.department?.dep_name || "N/A",
             name: emp.userId?.name || "N/A",
             dob: new Date(emp.dob).toLocaleDateString(),
+            profilePicture: emp.userId?.profilePicture, // Save raw base64 data for the PDF
             profileImage: (
               <img
                 className="rounded-full w-8 h-8 sm:w-10 sm:h-10 object-cover shadow-sm"

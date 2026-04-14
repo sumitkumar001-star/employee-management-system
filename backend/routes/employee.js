@@ -34,7 +34,7 @@ router.get("/:id", authMiddleware, getEmployee);
  * @desc    Updates employee professional details and the associated user's name.
  * @access  Private
  */
-router.put("/:id", authMiddleware, updateEmployee);
+router.put("/:id", authMiddleware, upload.single("image"), updateEmployee);
 
 /**
  * @route   GET /api/employee/department/:id

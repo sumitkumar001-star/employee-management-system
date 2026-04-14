@@ -55,7 +55,8 @@ const View = () => {
             {/* Profile Image Section */}
             <div className="flex justify-center md:col-span-1">
               <img
-                src={`https://employee-management-system-wjrt.vercel.app/${employee.userId?.profilePicture}`}
+              // src={`https://employee-management-system-wjrt.vercel.app/${employee.userId?.profilePicture}`}
+                src={employee.userId?.profilePicture}
                 className="rounded-full w-48 h-48 object-cover ring-4 ring-teal-500 ring-offset-4 ring-offset-white shadow-lg"
                 alt="Profile"
               />

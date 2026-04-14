@@ -41,8 +41,11 @@ const List = () => {
             profileImage: (
               <img
                 width={40}
-                className="rounded-full"
-                src={`https://employee-management-system-wjrt.vercel.app/${emp.userId?.profilePicture}`}
+            //    className="rounded-full"
+              //  src={`https://employee-management-system-wjrt.vercel.app/${emp.userId?.profilePicture}`}
+                className="rounded-full w-10 h-10 object-cover"
+                src={emp.userId?.profilePicture}
+                alt={emp.userId?.name}
               />
             ),
             // Action buttons (View, Edit, etc.) are typically injected here via Helper

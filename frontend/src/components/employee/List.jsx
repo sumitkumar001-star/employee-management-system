@@ -4,7 +4,6 @@ import DataTables from "react-data-table-component";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { EmployeeButtons, columns } from "../../utils/EmployeeHelper";
 import { useNavigate } from "react-router-dom";
 
 const List = () => {
@@ -14,6 +13,7 @@ const List = () => {
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   // State to store the full list of employees from the server
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
   // State to manage the loading spinner/status
   const [empLoading, setEmpLoading] = useState(false);
 
@@ -40,6 +40,62 @@ const List = () => {
     }
   };
 
+  // Define columns for the DataTable
+  const columns = [
+    {
+      name: <div className="text-center w-full">S No.</div>,
+      selector: (row) => row.sno,
+      cell: (row) => <div className="text-center w-full">{row.sno}</div>,
+      sortable: true,
+      width: "80px",
+    },
+    {
+      name: <div className="text-center w-full">Profile</div>,
+      selector: (row) => row.profileImage,
+      cell: (row) => <div className="flex justify-center w-full">{row.profileImage}</div>,
+      center: true,
+      width: "100px",
+    },
+    {
+      name: <div className="text-center w-full">Name</div>,
+      selector: (row) => row.name,
+      cell: (row) => <div className="text-center w-full">{row.name}</div>,
+      sortable: true,
+    },
+    {
+      name: <div className="text-center w-full">Department</div>,
+      selector: (row) => row.dep_name,
+      cell: (row) => <div className="text-center w-full">{row.dep_name}</div>,
+      sortable: true,
+    },
+    {
+      name: <div className="text-center w-full">DOB</div>,
+      selector: (row) => row.dob,
+      cell: (row) => <div className="text-center w-full">{row.dob}</div>,
+      sortable: true,
+    },
+    {
+      name: <div className="text-center w-full">Action</div>,
+      cell: (row) => (
+        <div className="flex items-center gap-2 justify-center w-full">
+          <Link to={`/admin-dashboard/employee/view/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
+            View
+          </Link>
+          <Link to={`/admin-dashboard/employee/edit/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
+            Edit
+          </Link>
+          <button onClick={() => handleDelete(row._id)} className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors">
+            Delete
+          </button>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+      width: "200px",
+    },
+  ];
+
   // Fetch employees from the backend on component mount
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -65,25 +121,11 @@ const List = () => {
               <img
                 width={40}
             //    className="rounded-full"
-              //  src={`https://employee-management-system-wjrt.vercel.app/${emp.userId?.profilePicture}`}
                 className="rounded-full w-10 h-10 object-cover"
                 src={emp.userId?.profilePicture}
                 alt={emp.userId?.name}
               />
-            ),
-            // Action buttons for each employee row
-            action: (
-              <div className="flex items-center gap-2">
-                <Link to={`/admin-dashboard/employee/view/${emp._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
-                  View
-                </Link>
-                <Link to={`/admin-dashboard/employee/edit/${emp._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
-                  Edit
-                </Link>
-                <button onClick={() => handleDelete(emp._id)} className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors">
-                  Delete
-                </button>
-              </div>),
+            )
           }));
           setEmployees(data);
           setFilteredEmployees(data);

@@ -109,16 +109,16 @@ const View = () => {
                         {salary.employeeId?.employeeId}
                       </td>
                       <td className="px-3 py-4 sm:px-6">
-                        ${Number(salary.basicSalary).toFixed(2)}
+                        ₹{Number(salary.basicSalary).toFixed(2)}
                       </td>
                       <td className="px-3 py-4 sm:px-6">
-                        ${Number(salary.allowances).toFixed(2)}
+                        ₹{Number(salary.allowances).toFixed(2)}
                       </td>
                       <td className="px-3 py-4 sm:px-6">
-                        ${Number(salary.deductions).toFixed(2)}
+                        ₹{Number(salary.deductions).toFixed(2)}
                       </td>
                       <td className="px-3 py-4 sm:px-6 font-bold text-teal-700">
-                        ${Number(salary.netSalary).toFixed(2)}
+                        ₹{Number(salary.netSalary).toFixed(2)}
                       </td>
                       <td className="px-3 py-4 sm:px-6 whitespace-nowrap">
                         {new Date(salary.payDate).toLocaleDateString()}

@@ -100,27 +100,27 @@ const EmployeeButtons = ({ id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 py-1">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-1.5 sm:gap-2 py-2 justify-center items-center w-full">
       <button
-        className="px-3 py-1 bg-teal-600 text-white rounded shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+        className="w-full sm:w-auto px-2 sm:px-3 py-1 bg-teal-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/view/${id}`)}
       >
         View
       </button>
       <button
-        className="px-3 py-1 bg-blue-600 text-white rounded shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+        className="w-full sm:w-auto px-2 sm:px-3 py-1 bg-blue-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/edit/${id}`)}
       >
         Edit
       </button>
       <button
-        className="px-3 py-1 bg-yellow-600 text-white rounded shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200"
+        className="w-full sm:w-auto px-2 sm:px-3 py-1 bg-yellow-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/salary/${id}`)}
       >
         Salary
       </button>
       <button
-        className="px-3 py-1 bg-red-600 text-white rounded shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
+        className="w-full sm:w-auto px-2 sm:px-3 py-1 bg-red-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/leaves/${id}`)}
       >
         Leave

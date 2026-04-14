@@ -43,51 +43,51 @@ const List = () => {
   // Define columns for the DataTable
   const columns = [
     {
-      name: <div className="text-center w-full">S No.</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">S No.</div>,
       selector: (row) => row.sno,
-      cell: (row) => <div className="text-center w-full">{row.sno}</div>,
+      cell: (row) => <div className="text-center w-full text-xs sm:text-sm">{row.sno}</div>,
       sortable: true,
-      width: "80px",
+      width: "70px",
     },
     {
-      name: <div className="text-center w-full">Profile</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Profile</div>,
       selector: (row) => row.profileImage,
       cell: (row) => <div className="flex justify-center w-full">{row.profileImage}</div>,
       center: true,
-      width: "100px",
+      width: "90px",
     },
     {
-      name: <div className="text-center w-full">Name</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Name</div>,
       selector: (row) => row.name,
-      cell: (row) => <div className="text-center w-full">{row.name}</div>,
+      cell: (row) => <div className="text-center w-full text-xs sm:text-sm truncate px-1">{row.name}</div>,
       sortable: true,
     },
     {
-      name: <div className="text-center w-full">Department</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Department</div>,
       selector: (row) => row.dep_name,
-      cell: (row) => <div className="text-center w-full">{row.dep_name}</div>,
+      cell: (row) => <div className="text-center w-full text-xs sm:text-sm">{row.dep_name}</div>,
       sortable: true,
     },
     {
-      name: <div className="text-center w-full">DOB</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">DOB</div>,
       selector: (row) => row.dob,
-      cell: (row) => <div className="text-center w-full">{row.dob}</div>,
+      cell: (row) => <div className="text-center w-full text-xs sm:text-sm">{row.dob}</div>,
       sortable: true,
     },
     {
-      name: <div className="text-center w-full">Action</div>,
+      name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Action</div>,
       cell: (row) => (
-        <div className="flex flex-col lg:flex-row items-center gap-2 justify-center w-full">
-          <Link to={`/admin-dashboard/employees/view/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors w-full lg:w-auto text-center">
+        <div className="flex flex-col xl:flex-row items-center gap-1.5 sm:gap-2 justify-center w-full py-2">
+          <Link to={`/admin-dashboard/employees/view/${row._id}`} className="px-2 py-1 text-[10px] sm:text-xs md:text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors w-full xl:w-auto text-center">
             View
           </Link>
-          <Link to={`/admin-dashboard/employees/edit/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors w-full lg:w-auto text-center">
+          <Link to={`/admin-dashboard/employees/edit/${row._id}`} className="px-2 py-1 text-[10px] sm:text-xs md:text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors w-full xl:w-auto text-center">
             Edit
           </Link>
-          <Link to={`/admin-dashboard/employees/salary/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 transition-colors w-full lg:w-auto text-center">
+          <Link to={`/admin-dashboard/employees/salary/${row._id}`} className="px-2 py-1 text-[10px] sm:text-xs md:text-sm font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 transition-colors w-full xl:w-auto text-center">
             Salary
           </Link>
-          <button onClick={() => handleDelete(row._id)} className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors w-full lg:w-auto">
+          <button onClick={() => handleDelete(row._id)} className="px-2 py-1 text-[10px] sm:text-xs md:text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors w-full xl:w-auto">
             Delete
           </button>
         </div>
@@ -95,7 +95,7 @@ const List = () => {
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
-      width: "150px",
+      width: "180px",
     },
   ];
 
@@ -122,9 +122,7 @@ const List = () => {
             dob: new Date(emp.dob).toLocaleDateString(),
             profileImage: (
               <img
-                width={40}
-            //    className="rounded-full"
-                className="rounded-full w-10 h-10 object-cover"
+                className="rounded-full w-8 h-8 sm:w-10 sm:h-10 object-cover shadow-sm"
                 src={emp.userId?.profilePicture}
                 alt={emp.userId?.name}
               />
@@ -156,34 +154,34 @@ const List = () => {
   return (
     <>
       {empLoading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="text-lg font-semibold text-gray-600">
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="text-base sm:text-lg font-semibold text-gray-600 animate-pulse">
             Loading Employees...
           </div>
         </div>
       ) : (
-        <div className="p-4 sm:p-6 lg:p-8">
-          <div className="bg-white shadow-md rounded-lg p-4 md:p-6">
-            <div className="mb-6 text-center">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-800">
+        <div className="p-4 sm:p-6 md:p-8 lg:p-10 bg-slate-50 min-h-full">
+          <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 md:p-8">
+            <div className="mb-6 sm:mb-8 text-center">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight">
                 Manage Employees
               </h3>
             </div>
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 sm:mb-8">
               <input
                 type="text"
                 placeholder="Search by Emp Name"
-                className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition duration-150 ease-in-out"
+                className="w-full md:w-72 lg:w-80 px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition duration-150 ease-in-out"
                 onChange={handleFilter}
               />
               <Link
                 to="/admin-dashboard/add-employee"
-                className="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 bg-teal-600 text-white font-medium rounded-md shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+                className="w-full md:w-auto inline-flex justify-center items-center px-6 py-2.5 bg-teal-600 text-white font-bold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 text-sm sm:text-base"
               >
                 Add New Employee
               </Link>
             </div>
-            <div className="mt-5 overflow-x-auto">
+            <div className="mt-2 sm:mt-4 overflow-hidden rounded-lg border border-gray-100">
               <DataTable
                 columns={columns}
                 data={filteredEmployees}

@@ -1,4 +1,4 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -78,49 +78,55 @@ const EditDepartment = () => {
   return (
     <>
       {depLoading ? (
-        <div>Loading...</div>
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="text-base sm:text-lg font-semibold text-gray-600 animate-pulse">Loading...</div>
+        </div>
       ) : (
-        <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96">
-          <div>
-            <h2 className="text-2xl font-bold mb-6">Edit Department</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="flex flex-col items-center justify-center min-h-full px-4 py-6 sm:px-6 md:py-12 lg:px-8">
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg">
+            <div className="text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 sm:mb-8">
+                Edit Department
+              </h2>
+            </div>
+            <form onSubmit={handleSubmit} className="mt-4 sm:mt-8 space-y-4 sm:space-y-6">
               <div>
                 <label
                   htmlFor="dep_name"
-                  className="text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
-                  Department Name:
+                  Department Name
                 </label>
                 <input
                   type="text"
                   name="dep_name"
                   onChange={handleChange}
                   value={department.dep_name}
-                  placeholder="Department Name"
+                  placeholder="e.g., Human Resources"
                   required
-                  className="mt-1 w-full p-2 border border-gray-300 rounded-md"
+                  className="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
                 />
               </div>
-              <div className="mt-3">
+              <div>
                 <label
-                  className="block text-sm font-medium text-gray-700"
                   htmlFor="description"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                 >
                   Description
                 </label>
                 <textarea
                   name="description"
-                  placeholder="Description"
+                  placeholder="A brief description of the department's role..."
                   onChange={handleChange}
                   value={department.description}
-                  className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                  rows="4"
+                  className="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
+                  rows="3"
                   required
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white py-2 fornt-bold px-4 rounded-md"
+                className="w-full flex justify-center py-2.5 sm:py-3 px-4 border border-transparent rounded-md shadow-sm text-sm sm:text-base font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
               >
                 Edit Department
               </button>

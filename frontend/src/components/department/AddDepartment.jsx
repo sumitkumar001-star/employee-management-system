@@ -47,14 +47,14 @@ const AddDepartment = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-full px-4 py-8 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+    <div className="flex flex-col items-center justify-center min-h-full px-4 py-6 sm:px-6 md:py-12 lg:px-8">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-lg">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 sm:mb-8">
             Add New Department
           </h2>
         </div>
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-4 sm:mt-8 space-y-4 sm:space-y-6">
           <div>
             <label
               htmlFor="dep_name"
@@ -68,7 +68,7 @@ const AddDepartment = () => {
               onChange={handleChange}
               placeholder="e.g., Human Resources"
               required
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
             />
           </div>
           <div>
@@ -82,14 +82,14 @@ const AddDepartment = () => {
               name="description"
               placeholder="A brief description of the department's role..."
               onChange={handleChange}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
-              rows="4"
+              className="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
+              rows="3"
               required
             ></textarea>
           </div>
           <button
             type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+            className="w-full flex justify-center py-2.5 sm:py-3 px-4 border border-transparent rounded-md shadow-sm text-sm sm:text-base font-bold text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
           >
             Add Department
           </button>

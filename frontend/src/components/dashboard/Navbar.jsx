@@ -6,13 +6,13 @@ const Navbar = () => {
   const { user, logout } = useAuthContext();
 
   return (
-    <div className='flex justify-between h-16 bg-blue-900 text-white items-center px-6 shadow-lg'>
+    <div className='flex justify-between h-16 bg-blue-900 text-white items-center px-4 sm:px-6 lg:px-8 shadow-lg'>
         {/* Display a welcome message with the user's name if available */}
-        <p className="text-xl font-medium">Welcome, {user?.name || 'User'}</p>
+        <p className="text-base sm:text-lg md:text-xl font-medium truncate mr-2">Welcome, {user?.name || 'User'}</p>
 
         {/* Logout button that triggers the logout logic from context */}
         <button
-          className="px-4 py-2 bg-red-700 text-white rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200"
+          className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-red-700 text-white rounded-md shadow-sm hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 whitespace-nowrap"
           onClick={logout}
         >
           Logout

@@ -35,12 +35,12 @@ const List = () => {
     {
       name: "S No",
       selector: (row) => row.sno,
-      width: "70px",
+      width: "60px",
     },
     {
       name: "Emp ID",
       selector: (row) => row.empId,
-      width: "120px",
+      width: "100px",
     },
     ...(user.role === "admin"
       ? [
@@ -55,31 +55,31 @@ const List = () => {
       name: "Leave Type",
       selector: (row) => row.leaveType,
       sortable: true,
-      cell: (row) => <span className="font-semibold text-slate-800 text-sm">{row.leaveType}</span>,
+      cell: (row) => <span className="font-semibold text-slate-800 text-[10px] sm:text-xs md:text-sm">{row.leaveType}</span>,
     },
     {
       name: "From",
       selector: (row) => row.startDate,
-      width: "140px",
-      cell: (row) => <span className="text-sm text-slate-600">{row.startDate}</span>,
+      width: "100px",
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm text-slate-600">{row.startDate}</span>,
     },
     {
       name: "To",
       selector: (row) => row.endDate,
-      width: "140px",
-      cell: (row) => <span className="text-sm text-slate-600">{row.endDate}</span>,
+      width: "100px",
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm text-slate-600">{row.endDate}</span>,
     },
     {
       name: "Description",
       selector: (row) => row.reason,
       grow: 2,
-      cell: (row) => <div className="truncate max-w-xs text-slate-600 text-sm">{row.reason}</div>,
+      cell: (row) => <div className="truncate max-w-[100px] sm:max-w-xs text-slate-600 text-[10px] sm:text-xs md:text-sm">{row.reason}</div>,
     },
     {
       name: "Status",
       selector: (row) => row.status,
       sortable: true,
-      width: "140px",
+      width: "110px",
       cell: (row) => (
         <span
           className={`px-2 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm ${
@@ -139,43 +139,43 @@ const List = () => {
 
 
   return (
-    <div className="bg-slate-50 min-h-full p-4 sm:p-6 lg:p-8">
+    <div className="bg-slate-50 min-h-full p-2 sm:p-6 md:p-8 lg:p-10">
       {empLoading ? (
-        <div className="flex flex-col justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500 mb-4"></div>
-          <div className="text-xl font-semibold text-slate-500 tracking-wide">
+        <div className="flex flex-col justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-4 border-teal-500 mb-4"></div>
+          <div className="text-sm sm:text-lg md:text-xl font-semibold text-slate-500 tracking-wide animate-pulse">
             Loading Leave Records...
           </div>
         </div>
       ) : (
-        <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8 border border-slate-100">
-          <div className="mb-8 text-center sm:text-left">
-            <h3 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+        <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl p-4 sm:p-6 md:p-8 border border-slate-100">
+          <div className="mb-6 sm:mb-8 text-center">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
               Manage Leaves
             </h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-xs sm:text-sm md:text-base text-slate-500">
               View and track your leave history and current status.
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
-            <div className="relative w-full sm:w-72">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 sm:mb-8">
+            <div className="relative w-full md:w-72 lg:w-80">
               <input
                 type="text"
                 placeholder="Search by Leave Type..."
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white transition-all duration-300"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white text-sm sm:text-base transition-all duration-300"
                 onChange={handleFilter}
               />
             </div>
             {user.role === "employee" && (
               <Link
                 to="/employee-dashboard/add-leave"
-                className="w-full sm:w-auto inline-flex justify-center items-center px-5 py-2.5 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-300 transform hover:-translate-y-0.5"
+                className="w-full md:w-auto inline-flex justify-center items-center px-6 py-2.5 bg-teal-600 text-white font-bold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 text-sm sm:text-base"
               >
                 Request New Leave
               </Link>
             )}
           </div>
-          <div className="mt-6 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <div className="mt-2 sm:mt-4 overflow-hidden rounded-lg border border-gray-100">
             <DataTable
               columns={columns}
               data={filteredLeaves}

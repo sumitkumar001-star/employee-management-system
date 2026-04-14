@@ -49,14 +49,14 @@ const Add = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+    <div className="max-w-4xl mx-auto my-6 md:my-10 bg-white p-6 sm:p-8 rounded-xl shadow-lg mx-4 sm:mx-auto">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8 text-center">
         Request for Leave
       </h2>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-4 sm:space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Leave Type
             </label>
             <select
@@ -71,10 +71,10 @@ const Add = () => {
               <option value="Annual Leave">Annual Leave</option>
             </select>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                From Date
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Start Date
               </label>
               <input
                 type="date"
@@ -85,8 +85,8 @@ const Add = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                To Date
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                End Date
               </label>
               <input
                 type="date"
@@ -98,7 +98,7 @@ const Add = () => {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Description
             </label>
             <textarea
@@ -113,7 +113,7 @@ const Add = () => {
         </div>
         <button
           type="submit"
-          className="w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-md transition duration-200"
+          className="w-full mt-6 sm:mt-8 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2.5 sm:py-3 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all duration-200 text-sm sm:text-base"
         >
           Add Leave
         </button>

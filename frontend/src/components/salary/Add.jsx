@@ -114,24 +114,24 @@ const AddSalary = () => {
   return (
     <>
       {departments && employee ? (
-        <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
-          <div className="mb-8 text-center">
-            <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight">Add Salary</h2>
-            <p className="text-slate-500 mt-2">Generate a new salary record for an employee</p>
+        <div className="max-w-4xl mx-auto my-6 md:my-10 bg-white p-5 sm:p-8 rounded-xl md:rounded-2xl shadow-xl border border-slate-100 mx-4 sm:mx-auto">
+          <div className="mb-6 md:mb-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">Add Salary</h2>
+            <p className="text-xs sm:text-sm md:text-base text-slate-500 mt-2">Generate a new salary record for an employee</p>
           </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/*Department*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Department
                 </label>
                 <select
                   name="department"
                   onChange={handleDepartment}
                   value={employee.department} 
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 >
                   <option value="">Select Department</option>
@@ -145,14 +145,14 @@ const AddSalary = () => {
 
               {/*Employee*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Employee
                 </label>
                 <select
                   name="employeeId"
                   onChange={handleChange}
                   value={employee.employeeId}
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 >
                   <option value="">Select Employee </option>
@@ -166,7 +166,7 @@ const AddSalary = () => {
 
               {/*Basic Salary*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Basic Salary
                 </label>
                 <input
@@ -174,14 +174,14 @@ const AddSalary = () => {
                   name="basicSalary"
                   value={employee.basicSalary}
                   onChange={handleChange}
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 />
               </div>
 
               {/*Allowances*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Allowances
                 </label>
                 <input
@@ -189,14 +189,14 @@ const AddSalary = () => {
                   name="allowances"
                   onChange={handleChange}
                   value={employee.allowances}
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 />
               </div>
 
               {/*Deductions*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Deductions
                 </label>
                 <input
@@ -204,14 +204,14 @@ const AddSalary = () => {
                   name="deductions"
                   value={employee.deductions}
                   onChange={handleChange}
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 />
               </div>
 
               {/*Pay Date*/}
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-wide">
                   Pay Date
                 </label>
                 <input
@@ -219,7 +219,7 @@ const AddSalary = () => {
                   name="payDate"
                   value={employee.payDate || ""}
                   onChange={handleChange}
-                  className="block w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200"
+                  className="block w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm sm:text-base transition-all duration-200"
                   required
                 />
               </div>
@@ -227,16 +227,16 @@ const AddSalary = () => {
 
             <button
               type="submit"
-              className="w-full mt-8 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-teal-200 transition-all duration-300 transform hover:-translate-y-0.5"
+              className="w-full mt-6 sm:mt-8 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 sm:py-3.5 px-4 rounded-lg sm:rounded-xl shadow-lg hover:shadow-teal-200 transition-all duration-300 transform hover:-translate-y-0.5 text-sm sm:text-base"
             >
               Add Salary Record
             </button>
           </form>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500 mb-4"></div>
-          <div className="text-xl font-semibold text-slate-500 tracking-wide">
+        <div className="flex flex-col justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-4 border-teal-500 mb-4"></div>
+          <div className="text-sm sm:text-lg md:text-xl font-semibold text-slate-500 tracking-wide animate-pulse">
             Loading Form Data...
           </div>
         </div>

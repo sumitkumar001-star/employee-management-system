@@ -14,11 +14,11 @@ const columns = [
     name: <div className="text-center w-full">Department Name</div>,
     selector: (row) => row.dep_name,
     sortable: true,
-    cell: (row) => <div className="text-center w-full">{row.dep_name}</div>,
+    cell: (row) => <div className="text-center w-full text-xs sm:text-sm md:text-base truncate px-1">{row.dep_name}</div>,
   },
   {
-    name: <div className="text-center w-full">Action</div>, // Custom header for centering
-    cell: (row) => <div className="flex justify-center w-full"><DepartmentButtons id={row._id} onDepartmentDelete={row.onDepartmentDelete} /></div>,
+    name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Action</div>, // Custom header for centering
+    cell: (row) => <div className="flex justify-center w-full py-2"><DepartmentButtons id={row._id} onDepartmentDelete={row.onDepartmentDelete} /></div>,
   },
 ];
 const DepartmentButtons = ({ id, onDepartmentDelete: onDepartmentDeleteProp }) => {

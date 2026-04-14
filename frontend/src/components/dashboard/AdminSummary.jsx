@@ -70,13 +70,13 @@ const AdminSummary = () => {
   }
 
   return (
-    <div className="p-6 bg-slate-50 min-h-full">
-      <h3 className="text-center text-3xl font-bold text-slate-700 tracking-tight">
+    <div className="p-4 sm:p-6 lg:p-8 bg-slate-50 min-h-full">
+      <h3 className="text-center text-2xl sm:text-3xl font-bold text-slate-700 tracking-tight">
         Admin Dashboard
       </h3>
 
       {/* General Statistics Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
         <SummaryCard
           icon={<FaUser />}
           text="Total Employees"
@@ -98,12 +98,12 @@ const AdminSummary = () => {
       </div>
 
       {/* Leave Statistics Section */}
-      <div className="mt-10">
-        <h3 className="text-center text-3xl font-bold text-slate-700 tracking-tight">
+      <div className="mt-8 sm:mt-12">
+        <h3 className="text-center text-2xl sm:text-3xl font-bold text-slate-700 tracking-tight">
           Leave Details
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8">
           <SummaryCard
             icon={<FaFileAlt />}
             text="Leave Applied"

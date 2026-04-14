@@ -24,11 +24,11 @@ export const AdminDashboard = () => {
         {/* Sidebar navigation specific to Admin tasks */}
         <AdminSidebar />
         
-        <div className='flex-1 ml-64 bg-gray-100 h-screen'>
+        <div className='flex-1 ml-16 sm:ml-20 md:ml-56 lg:ml-64 bg-gray-100 min-h-screen transition-all duration-300 ease-in-out'>
         {/* Top navigation bar showing user info and logout */}
         <Navbar />
         {/* Outlet renders the matched child route component (e.g., AdminSummary, EmployeeList) */}
-        <Outlet />              
+        <div className="p-0"><Outlet /></div>
         </div>                                
 
     </div>

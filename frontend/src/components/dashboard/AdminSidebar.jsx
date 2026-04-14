@@ -33,13 +33,13 @@ const AdminSidebar = () => {
     }`;
 
   return (
-    <aside className="bg-blue-900 text-white w-64 h-screen fixed left-0 top-0 flex flex-col border-r border-blue-800">
+    <aside className="bg-blue-900 text-white w-16 sm:w-20 md:w-56 lg:w-64 h-screen fixed left-0 top-0 flex flex-col border-r border-blue-800 transition-all duration-300 ease-in-out">
       {/* Sidebar Header / Logo Section */}
       <div className="bg-blue-900 h-16 flex items-center justify-center px-4 border-b border-blue-800">
-        <h2 className="text-xl text-center font-extrabold tracking-tight text-white">ANDRITZ</h2>
+        <h2 className="text-sm sm:text-base md:text-xl text-center font-extrabold tracking-tight text-white truncate">ANDRITZ</h2>
       </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-2">
+      <nav className="flex-1 px-2 md:px-4 py-6 space-y-2 overflow-y-auto">
         {/* Map through the navLinks array to generate navigation items dynamically */}
         {navLinks.map((link) => (
           <NavLink
@@ -48,10 +48,10 @@ const AdminSidebar = () => {
             end={link.end}
             className={navLinkClass}
           >
-            <span className="text-lg w-6 flex items-center justify-center">
+            <span className="text-xl md:text-lg w-full md:w-6 flex items-center justify-center">
               {link.icon}
             </span>
-            <span>{link.text}</span>
+            <span className="hidden md:block truncate">{link.text}</span>
           </NavLink>
         ))}
       </nav>

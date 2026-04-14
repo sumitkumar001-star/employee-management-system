@@ -135,16 +135,16 @@ const Details = () => {
               </div>
 
               {leave.status === "Pending" && (
-                <div className="flex space-x-4 mt-8 pt-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4">
                   <button
                     onClick={() => changeStatus("Approved")}
-                    className="flex-1 px-6 py-3 bg-teal-600 text-white font-bold rounded-xl hover:bg-teal-700 transition-all duration-200 shadow-lg hover:shadow-teal-200 transform hover:-translate-y-0.5"
+                    className="flex-1 px-6 py-2.5 sm:py-3 bg-teal-600 text-white text-sm sm:text-base font-bold rounded-xl hover:bg-teal-700 transition-all duration-200 shadow-lg hover:shadow-teal-200 transform hover:-translate-y-0.5"
                   >
                     Approve
                   </button>
                   <button
                     onClick={() => changeStatus("Rejected")}
-                    className="flex-1 px-6 py-3 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-red-200 transform hover:-translate-y-0.5"
+                    className="flex-1 px-6 py-2.5 sm:py-3 bg-red-500 text-white text-sm sm:text-base font-bold rounded-xl hover:bg-red-600 transition-all duration-200 shadow-lg hover:shadow-red-200 transform hover:-translate-y-0.5"
                   >
                     Reject
                   </button>

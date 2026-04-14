@@ -65,62 +65,62 @@ const View = () => {
           </div>
         </div>
       ) : (
-        <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8 border border-slate-100">
-          <div className="mb-8 text-center sm:text-left">
-            <h3 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100">
+          <div className="mb-6 md:mb-8 text-center">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
               Salary History
             </h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-xs sm:text-sm md:text-base text-slate-500">
               Detailed overview of your past and current salary payments.
             </p>
           </div>
-          <div className="flex justify-end mb-6">
+          <div className="flex flex-col md:flex-row justify-end items-center gap-4 mb-6">
             <input
               type="text"
-              placeholder="Search By Emp ID"
-              className="w-full sm:w-72 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white transition-all duration-300"
+              placeholder="Search By Emp ID, Date..."
+              className="w-full md:w-72 lg:w-80 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white text-sm sm:text-base transition-all duration-300"
               onChange={(e) => filterSalary(e.target.value)}
             />
           </div>
           {filterSalaries.length > 0 ? (
-            <div className="mt-6 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="mt-2 sm:mt-4 border border-slate-100 rounded-lg overflow-x-auto shadow-sm">
               <table className="w-full text-sm text-left text-slate-600">
-                <thead className="text-xs text-slate-700 uppercase bg-slate-100 border-b border-slate-200">
+                <thead className="text-[10px] sm:text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
                   <tr>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">SNo</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Employee ID</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Basic Salary</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Allowances</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Deductions</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Net Salary</th>
-                    <th scope="col" className="px-6 py-3 font-semibold text-slate-800">Pay Date</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">SNo</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Emp ID</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Basic</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Allowances</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Deductions</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Net</th>
+                    <th scope="col" className="px-3 py-3 sm:px-6 font-bold text-slate-800">Pay Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filterSalaries.map((salary) => (
                     <tr
                       key={salary._id}
-                      className="bg-white border-b border-slate-100 hover:bg-slate-50 transition-colors duration-150 ease-in-out"
+                      className="bg-white border-b border-slate-50 hover:bg-slate-50 transition-colors duration-150 ease-in-out text-[10px] sm:text-xs md:text-sm"
                     >
-                      <td className="px-6 py-4 font-medium text-slate-800">
+                      <td className="px-3 py-4 sm:px-6 font-medium text-slate-800">
                         {sno++}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 py-4 sm:px-6">
                         {salary.employeeId?.employeeId}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 py-4 sm:px-6">
                         ${Number(salary.basicSalary).toFixed(2)}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 py-4 sm:px-6">
                         ${Number(salary.allowances).toFixed(2)}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 py-4 sm:px-6">
                         ${Number(salary.deductions).toFixed(2)}
                       </td>
-                      <td className="px-6 py-4 font-semibold text-slate-900">
+                      <td className="px-3 py-4 sm:px-6 font-bold text-teal-700">
                         ${Number(salary.netSalary).toFixed(2)}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-3 py-4 sm:px-6 whitespace-nowrap">
                         {new Date(salary.payDate).toLocaleDateString()}
                       </td>
                     </tr>
@@ -129,7 +129,7 @@ const View = () => {
               </table>
             </div>
           ) : (
-            <div className="text-center p-8 text-lg text-slate-600">
+            <div className="text-center p-8 text-sm sm:text-lg text-slate-500 font-medium">
               No salary records found.
             </div>
           )}

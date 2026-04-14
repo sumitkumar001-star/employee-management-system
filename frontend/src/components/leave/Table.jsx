@@ -80,37 +80,43 @@ const Table = () => {
     {
       name: "S No",
       selector: (row) => row.sno,
-      width: "70px",
+      width: "60px",
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm">{row.sno}</span>,
     },
     {
       name: "Emp ID",
       selector: (row) => row.employeeId,
-      width: "120px",
+      width: "90px",
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm">{row.employeeId}</span>,
     },
     {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm font-medium truncate">{row.name}</span>,
     },
     {
       name: "Department",
       selector: (row) => row.department,
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm truncate">{row.department}</span>,
     },
     {
       name: "Leave Type",
       selector: (row) => row.leaveType,
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm">{row.leaveType}</span>,
     },
     {
       name: "Days",
       selector: (row) => row.days,
-      width: "80px",
+      width: "60px",
+      cell: (row) => <span className="text-[10px] sm:text-xs md:text-sm">{row.days}</span>,
     },
     {
       name: "Status",
       selector: (row) => row.status,
       cell: (row) => (
         <span
-          className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${
+          className={`px-2 py-1 rounded-full text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-wider border ${
             row.status === "Approved"
               ? "bg-green-50 text-green-700 border-green-200"
               : row.status === "Rejected"
@@ -126,7 +132,7 @@ const Table = () => {
       name: "Action",
       cell: (row) => (
         <button
-          className="px-4 py-1.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 shadow-sm transition-all duration-200"
+          className="px-2 py-1 sm:px-4 sm:py-1.5 bg-teal-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded-lg hover:bg-teal-700 shadow-sm transition-all duration-200"
           onClick={() => navigate(`/admin-dashboard/leaves/${row._id}`)}
         >
           View
@@ -136,40 +142,40 @@ const Table = () => {
   ];
 
   return (
-    <div className="bg-slate-50 min-h-full p-4 sm:p-6 lg:p-8">
+    <div className="bg-slate-50 min-h-full p-2 sm:p-6 md:p-8 lg:p-10">
       {loading ? (
-        <div className="flex flex-col justify-center items-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-teal-500 mb-4"></div>
-          <div className="text-xl font-semibold text-slate-500 tracking-wide">
+        <div className="flex flex-col justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-4 border-teal-500 mb-4"></div>
+          <div className="text-sm sm:text-lg md:text-xl font-semibold text-slate-500 tracking-wide animate-pulse">
             Loading Leave Requests...
           </div>
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8 border border-slate-100">
-          <div className="mb-8 text-center sm:text-left">
-            <h3 className="text-3xl font-extrabold text-slate-800 tracking-tight">
+        <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-xl p-4 sm:p-6 md:p-8 border border-slate-100">
+          <div className="mb-6 sm:mb-8 text-center">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight">
               Manage Leave Requests
             </h3>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-xs sm:text-sm md:text-base text-slate-500">
               Review and manage employee leave applications.
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-4 mb-8">
-            <div className="relative w-full lg:w-96">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4 mb-6 sm:mb-8">
+            <div className="relative w-full lg:w-80 xl:w-96">
               <input
                 type="text"
                 placeholder="Search by Name or ID..."
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white transition-all duration-300"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 focus:bg-white text-sm sm:text-base transition-all duration-300"
                 onChange={handleFilter}
               />
             </div>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center lg:justify-end gap-2 w-full lg:w-auto">
               {["All", "Pending", "Approved", "Rejected"].map((status) => (
                 <button
                   key={status}
                   onClick={() => filterByStatus(status)}
-                  className="px-4 py-2 text-sm font-semibold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-all duration-200 shadow-sm"
+                  className="flex-1 sm:flex-none px-3 py-2 sm:px-4 text-[10px] sm:text-xs md:text-sm font-bold bg-white border border-slate-200 text-slate-600 rounded-lg hover:bg-teal-600 hover:text-white hover:border-teal-600 transition-all duration-200 shadow-sm uppercase tracking-wider"
                 >
                   {status}
                 </button>
@@ -177,7 +183,7 @@ const Table = () => {
             </div>
           </div>
 
-          <div className="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          <div className="mt-2 sm:mt-4 overflow-hidden rounded-lg border border-gray-100">
             <DataTable
               columns={columns}
               data={filteredLeaves}

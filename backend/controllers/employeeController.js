@@ -53,6 +53,8 @@ const addEmployee = async (req, res) => {
         // Convert the image buffer to a Base64 string to store in the database
         const mimeType = req.file.mimetype;
         const buffer = req.file.buffer;
+        console.log("Add Employee: Uploaded file mimetype:", mimeType);
+        console.log("Add Employee: Uploaded file size:", req.file.size, "bytes");
         profilePictureData = `data:${mimeType};base64,${buffer.toString(
           "base64"
         )}`;
@@ -157,6 +159,8 @@ const updateEmployee = async (req, res) => {
     if (req.file) {
       const mimeType = req.file.mimetype;
       const buffer = req.file.buffer;
+      console.log("Update Employee: Uploaded file mimetype:", mimeType);
+      console.log("Update Employee: Uploaded file size:", req.file.size, "bytes");
       userUpdateData.profilePicture = `data:${mimeType};base64,${buffer.toString(
         "base64"
       )}`;

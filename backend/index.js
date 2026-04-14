@@ -23,9 +23,6 @@ app.use(cors({
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
-// Serve static files (like profile pictures) from the uploads directory
-app.use(express.static("public/uploads"));
-
 // Define API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/department", departmentRouter);

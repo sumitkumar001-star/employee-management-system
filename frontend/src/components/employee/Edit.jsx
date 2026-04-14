@@ -59,7 +59,7 @@ const Edit = () => {
       }
     };
     fetchEmployee();
-  }, []);
+  }, [id]);
 
   // Update the local state dynamically as the user types in the input fields
   const handleChange = (e) => {

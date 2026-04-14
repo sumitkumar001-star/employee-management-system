@@ -78,11 +78,14 @@ const List = () => {
       name: <div className="text-center w-full">Action</div>,
       cell: (row) => (
         <div className="flex items-center gap-2 justify-center w-full">
-          <Link to={`/admin-dashboard/employee/view/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
+          <Link to={`/admin-dashboard/employees/view/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">
             View
           </Link>
-          <Link to={`/admin-dashboard/employee/edit/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
+          <Link to={`/admin-dashboard/employees/edit/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
             Edit
+          </Link>
+          <Link to={`/admin-dashboard/employees/salary/${row._id}`} className="px-3 py-1 text-sm font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 transition-colors">
+            Salary
           </Link>
           <button onClick={() => handleDelete(row._id)} className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors">
             Delete
@@ -92,7 +95,7 @@ const List = () => {
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
-      width: "200px",
+      width: "280px",
     },
   ];
 

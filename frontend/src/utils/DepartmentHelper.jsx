@@ -47,7 +47,7 @@ const DepartmentButtons = ({ id, onDepartmentDelete: onDepartmentDeleteProp }) =
   };
 
   return (
-    <div className="flex space-x-3">
+    <div className="flex flex-col sm:flex-row gap-2">
       <button
         className="px-3 py-1 bg-blue-600 text-white rounded shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
         onClick={

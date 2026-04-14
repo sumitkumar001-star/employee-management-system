@@ -96,10 +96,10 @@ const Edit = () => {
   return (
     <>
       {departments && employee ? ( // Ensure both are loaded before rendering the form
-        <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-6 lg:px-8">
-          <div className="w-full max-w-4xl bg-white p-8 rounded-xl shadow-lg">
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+          <div className="w-full max-w-4xl bg-white p-4 md:p-8 rounded-xl shadow-lg">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-gray-800 mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
                 Edit Employee Details
               </h2>
             </div>

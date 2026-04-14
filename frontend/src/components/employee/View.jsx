@@ -46,8 +46,8 @@ const View = () => {
           <p className="mt-4 text-lg text-slate-700">{error}</p>
         </div>
       ) : employee ? (
-        <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-lg">
-          <h2 className="text-3xl font-extrabold text-slate-800 tracking-tight mb-10 text-center">
+        <div className="max-w-4xl mx-auto my-4 md:my-10 bg-white p-4 md:p-8 rounded-xl shadow-lg">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight mb-10 text-center">
             Employee Profile
           </h2>
 
@@ -55,9 +55,8 @@ const View = () => {
             {/* Profile Image Section */}
             <div className="flex justify-center md:col-span-1">
               <img
-              // src={`https://employee-management-system-wjrt.vercel.app/${employee.userId?.profilePicture}`}
                 src={employee.userId?.profilePicture}
-                className="rounded-full w-48 h-48 object-cover ring-4 ring-teal-500 ring-offset-4 ring-offset-white shadow-lg"
+                className="rounded-full w-32 h-32 md:w-48 md:h-48 object-cover ring-4 ring-teal-500 ring-offset-4 ring-offset-white shadow-lg"
                 alt="Profile"
               />
             </div>

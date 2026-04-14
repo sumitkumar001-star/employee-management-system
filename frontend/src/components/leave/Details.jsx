@@ -68,8 +68,8 @@ const Details = () => {
           </div>
         </div>
       ) : leave ? (
-        <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-lg border border-slate-100">
-          <h2 className="text-3xl font-extrabold text-slate-800 mb-8 text-center tracking-tight">
+        <div className="max-w-4xl mx-auto my-4 md:my-10 bg-white p-4 md:p-8 rounded-xl shadow-lg border border-slate-100">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 mb-8 text-center tracking-tight">
             Leave Details
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -79,7 +79,7 @@ const Details = () => {
                 <img
                   src={leave.employeeId.userId.profilePicture}
                   alt="Profile"
-                  className="relative rounded-full border-4 border-white w-56 h-56 object-cover shadow-2xl"
+                  className="relative rounded-full border-4 border-white w-40 h-40 md:w-56 md:h-56 object-cover shadow-2xl"
                 />
               </div>
               <div className="text-center">
@@ -88,7 +88,7 @@ const Details = () => {
               </div>
             </div>
             
-            <div className="space-y-5 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div className="space-y-5 bg-slate-50 p-4 md:p-6 rounded-2xl border border-slate-100">
               <div className="flex justify-between items-center border-b border-slate-200 pb-2">
                 <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">Employee ID</p>
                 <p className="text-lg font-semibold text-slate-800">{leave.employeeId.employeeId}</p>

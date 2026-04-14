@@ -82,9 +82,9 @@ const Add = () => {
     }
   };
   return (
-    <div className="max-w-4xl mx-auto my-10 bg-white p-8 rounded-xl shadow-lg">
+    <div className="max-w-4xl mx-auto my-4 md:my-10 bg-white p-4 md:p-8 rounded-xl shadow-lg">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
           Add New Employee
         </h2>
       </div>

@@ -100,7 +100,7 @@ const EmployeeButtons = ({ id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap gap-2 py-1">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 py-1">
       <button
         className="px-3 py-1 bg-teal-600 text-white rounded shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/view/${id}`)}

@@ -82,7 +82,7 @@ const List = () => {
       width: "110px",
       cell: (row) => (
         <span
-          className={`px-2 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-sm ${
+          className={`px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border shadow-sm whitespace-nowrap ${
             row.status === "Approved"
               ? "bg-green-50 text-green-700 border-green-200"
               : row.status === "Rejected"

@@ -63,7 +63,6 @@ const Add = () => {
       // Send a POST request with the employee data and authorization token
       const response = await axios.post(
         "https://employee-management-system-wjrt.vercel.app/api/employee/add",
-        "http://localhost:5000/api/employee/add",
         formDataObj,
         {
           headers: {

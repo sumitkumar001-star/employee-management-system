@@ -78,17 +78,17 @@ const List = () => {
     {
       name: <div className="text-center w-full text-xs sm:text-sm md:text-base">Action</div>,
       cell: (row) => (
-        <div className="flex flex-col lg:flex-row items-center gap-1.5 sm:gap-2 justify-center w-full py-2">
-          <Link to={`/admin-dashboard/employees/view/${row._id}`} className="px-2 py-1 sm:text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors w-full lg:w-auto text-center">
+        <div className="flex flex-col lg:flex-row items-center gap-2 justify-center w-full py-2">
+          <Link to={`/admin-dashboard/employees/view/${row._id}`} className="px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors w-full lg:w-auto text-center">
             View
           </Link>
-          <Link to={`/admin-dashboard/employees/edit/${row._id}`} className="px-2 py-1  sm:text-xs font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors w-full lg:w-auto text-center">
+          <Link to={`/admin-dashboard/employees/edit/${row._id}`} className="px-3 py-1.5 text-xs font-medium text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors w-full lg:w-auto text-center">
             Edit
           </Link>
-          <Link to={`/admin-dashboard/employees/salary/${row._id}`} className="px-2 py-1 sm:text-xs font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 transition-colors w-full lg:w-auto text-center">
+          <Link to={`/admin-dashboard/employees/salary/${row._id}`} className="px-3 py-1.5 text-xs font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 transition-colors w-full lg:w-auto text-center">
             Salary
           </Link>
-          <button onClick={() => handleDelete(row._id)} className="px-2 py-1 sm:text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors w-full lg:w-auto text-center">
+          <button onClick={() => handleDelete(row._id)} className="px-3 py-1.5 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700 transition-colors w-full lg:w-auto text-center">
             Delete
           </button>
         </div>
@@ -96,7 +96,7 @@ const List = () => {
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
-      width: "170px",
+      width: "260px",
     },
   ];
 

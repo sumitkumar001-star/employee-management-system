@@ -96,7 +96,7 @@ const List = () => {
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
-      width: "200px",
+      width: "170px",
     },
   ];
 

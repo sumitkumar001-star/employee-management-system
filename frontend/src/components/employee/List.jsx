@@ -5,8 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
+import { exportToCSV, exportToPDF } from "../../utils/exportUtils";
 
 
 const List = () => {
@@ -106,64 +105,26 @@ const List = () => {
   ];
 
   // Export data to CSV (Excel compatible)
-  const exportToCSV = () => {
+  const handleExportCSV = () => {
     const headers = ["S No.", "Name", "Department", "DOB"];
-    // Map the filtered employees into an array of arrays, wrapping strings in quotes to handle commas
-    const csvData = filteredEmployees.map((emp) => [
+    const dataArray = filteredEmployees.map((emp) => [
       emp.sno,
-      `"${emp.name}"`,
-      `"${emp.dep_name}"`,
-      `"${emp.dob}"`,
+      emp.name,
+      emp.dep_name,
+      emp.dob,
     ]);
-    const csvContent = [headers, ...csvData].map((e) => e.join(",")).join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Employee_List.csv";
-    link.click();
+    exportToCSV("Employee_List.csv", headers, dataArray);
   };
 
   // Export data to PDF
-  const exportToPDF = () => {
-    const doc = new jsPDF();
-    
-    // --- OPTIONAL: Add a Company Logo ---
-    // To add a logo, uncomment the lines below and replace the placeholder string 
-    // with your actual Base64 encoded image string.
-    // const logoBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
-    // doc.addImage(logoBase64, "PNG", 14, 10, 20, 20); // (image, format, x, y, width, height)
-
-    // Customize the Document Title (Adjust the Y coordinate '20' to '35' if you use a logo above it)
-    doc.setFontSize(20);
-    doc.setTextColor(13, 148, 136); // Teal-600 to match your app theme
-    doc.text("ANDRITZ Employee List", 14, 20); 
-
-    // Add a subtitle or timestamp
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 28);
-
+  const handleExportPDF = () => {
+    const headers = [["S No.", "Profile", "Full Name", "Department Name", "Date of Birth"]];
     const tableData = filteredEmployees.map((emp) => [emp.sno, "", emp.name, emp.dep_name, emp.dob]);
     
-    autoTable(doc, {
-      head: [["S No.", "Profile", "Full Name", "Department Name", "Date of Birth"]], // Customized Headers
-      body: tableData,
-      startY: 35, // Pushed down to make room for the title and logo
-      headStyles: {
-        fillColor: [13, 148, 136], // Teal-600 background for headers
-        textColor: 255, // White text
-        fontStyle: "bold",
-      },
-      alternateRowStyles: {
-        fillColor: [240, 253, 250], // Light teal/gray for zebra striping
-      },
+    const customOptions = (doc) => ({
       bodyStyles: {
         minCellHeight: 15, // Increase row height to fit the images
         valign: 'middle',
-      },
-      styles: {
-        fontSize: 10,
-        cellPadding: 4,
       },
       columnStyles: {
         0: { cellWidth: 15, halign: 'center' }, // S No.
@@ -191,7 +152,8 @@ const List = () => {
         }
       }
     });
-    doc.save("Employee_List.pdf");
+
+    exportToPDF("Employee_List.pdf", "ANDRITZ Employee List", headers, tableData, customOptions);
   };
 
   // Fetch employees from the backend on component mount
@@ -272,13 +234,13 @@ const List = () => {
               />
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                 <button
-                  onClick={exportToCSV}
+                  onClick={handleExportCSV}
                   className="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2.5 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-200 text-sm sm:text-base"
                 >
                   Export CSV
                 </button>
                 <button
-                  onClick={exportToPDF}
+                  onClick={handleExportPDF}
                   className="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2.5 bg-red-600 text-white font-bold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 text-sm sm:text-base"
                 >
                   Export PDF

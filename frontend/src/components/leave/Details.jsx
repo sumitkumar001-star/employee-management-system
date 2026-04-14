@@ -77,7 +77,7 @@ const Details = () => {
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-teal-500 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                 <img
-                  src={`http://localhost:5000/${leave.employeeId.userId.profilePicture}`}
+                  src={`https://employee-management-system-wjrt.vercel.app/${leave.employeeId.userId.profilePicture}`}
                   alt="Profile"
                   className="relative rounded-full border-4 border-white w-56 h-56 object-cover shadow-2xl"
                 />

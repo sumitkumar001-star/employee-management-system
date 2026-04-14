@@ -1,6 +1,7 @@
 import Employee from "../models/Employee.js";
 import Department from "../models/Department.js";
 import Leave from "../models/Leave.js";
+import Salary from "../models/Salary.js";
 
 /**
  * Fetches a summary of statistics for the admin dashboard,
@@ -9,42 +10,56 @@ import Leave from "../models/Leave.js";
  */
 const getSummary = async (req, res) => {
   try {
+    // Get start and end of the current month for salary query
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999); // Ensure we cover the whole last day of the month
+
     // Concurrently execute all database queries for maximum efficiency
     const [
       totalDepartments,
-      employeeStats,
+      totalEmployees,
+      monthlySalaryData,
       leaveData,
     ] = await Promise.all([
       // Query 1: Count total departments
       Department.countDocuments(),
 
-      // Query 2: Aggregate total employees and total salary in a single pipeline
-      Employee.aggregate([
+      // Query 2: Count total employees
+      Employee.countDocuments(),
+
+      // Query 3: Aggregate total net salary paid in the current month
+      Salary.aggregate([
+        {
+          $match: {
+            payDate: {
+              $gte: startOfMonth,
+              $lte: endOfMonth,
+            },
+          },
+        },
         {
           $group: {
             _id: null,
-            totalEmployees: { $sum: 1 },
-            totalSalary: { $sum: "$salary" },
+            totalSalary: { $sum: "$netSalary" },
           },
         },
       ]),
 
-      // Query 3: Use $facet to get leave counts by status and distinct employees in one pipeline
+      // Query 4: Use $facet to get leave counts by status and distinct employees in one pipeline
       Leave.aggregate([
         {
           $facet: {
             byStatus: [{ $group: { _id: "$status", count: { $sum: 1 } } }],
-            distinctEmployees: [
-              { $group: { _id: "$employeeId" } },
-              { $count: "count" },
-            ],
+            distinctEmployees: [{ $group: { _id: "$employeeId" } }, { $count: "count" }],
           },
         },
       ]),
     ]);
 
     // Process the results from the aggregation pipelines
-    const employeeSummary = employeeStats[0] || { totalEmployees: 0, totalSalary: 0 };
+    const totalSalary = monthlySalaryData[0]?.totalSalary || 0;
     const leaveStats = leaveData[0];
 
     const leaveSummary = {
@@ -57,9 +72,9 @@ const getSummary = async (req, res) => {
     // Return the compiled statistics to the frontend
     return res.status(200).json({
       success: true,
-      totalEmployees: employeeSummary.totalEmployees,
+      totalEmployees,
       totalDepartments,
-      totalSalary: employeeSummary.totalSalary,
+      totalSalary,
       leaveSummary,
     });
   } catch (error) {

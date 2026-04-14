@@ -100,7 +100,7 @@ const EmployeeButtons = ({ id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-1.5 sm:gap-2 py-2 justify-center items-center w-full">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-1.5 sm:gap-2 py-2 justify-center items-center w-full min-w-max">
       <button
         className="w-full sm:w-auto px-2 sm:px-3 py-1 bg-teal-600 text-white text-[10px] sm:text-xs md:text-sm font-medium rounded shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
         onClick={() => navigate(`/admin-dashboard/employees/view/${id}`)}

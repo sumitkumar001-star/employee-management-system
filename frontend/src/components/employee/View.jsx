@@ -65,7 +65,7 @@ const View = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flow-root">
                 <dl className="-my-2 md:-my-4 divide-y divide-slate-200">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 md:py-4 gap-1 sm:gap-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between py-4 gap-1 sm:gap-0">
                     <dt className="text-sm md:text-base font-medium text-slate-500">
                       Name
                     </dt>

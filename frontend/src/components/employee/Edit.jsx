@@ -115,8 +115,8 @@ const Edit = () => {
                     name="name"
                     onChange={handleChange}
                     value={employee.name}
-                    placeholder="e.g., Jane Doe"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    placeholder="e.g., Jane Doe" 
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
                     required
                   />
                 </div>
@@ -130,7 +130,7 @@ const Edit = () => {
                     name="martialStatus"
                     onChange={handleChange}
                     value={employee.martialStatus}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
                     required
                   >
                     <option value="">Select Marital Status</option>
@@ -150,8 +150,8 @@ const Edit = () => {
                     name="designation"
                     onChange={handleChange}
                     value={employee.designation}
-                    placeholder="e.g., Senior Developer"
-                    className="appearance-none block w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
+                    placeholder="e.g., Senior Developer" 
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
                     required
                   />
                 </div>
@@ -166,8 +166,8 @@ const Edit = () => {
                     name="salary"
                     onChange={handleChange}
                     value={employee.salary}
-                    placeholder="e.g., 75000"
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    placeholder="e.g., 75000" 
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
                     required
                   />
                 </div>
@@ -183,7 +183,7 @@ const Edit = () => {
                     name="department"
                     onChange={handleChange}
                     value={employee.department}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
                     required
                   >
                     <option value="">Select Department</option>

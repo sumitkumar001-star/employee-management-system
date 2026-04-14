@@ -101,7 +101,7 @@ const Add = () => {
               onChange={handleChange}
               value={formData.name}
               placeholder="e.g., John Doe"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -118,7 +118,7 @@ const Add = () => {
               value={formData.email}
               placeholder="e.g., john.doe@example.com"
               autoComplete="none"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -137,7 +137,7 @@ const Add = () => {
               onChange={handleChange}
               value={formData.employeeId}
               placeholder="e.g., EMP12345"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -151,8 +151,8 @@ const Add = () => {
               type="date"
               name="dob"
               onChange={handleChange}
-              value={formData.dob}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              value={formData.dob} 
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -166,7 +166,7 @@ const Add = () => {
               name="gender"
               onChange={handleChange}
               value={formData.gender}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             >
               <option value="">Select Gender</option>
@@ -185,7 +185,7 @@ const Add = () => {
               name="martialStatus"
               onChange={handleChange}
               value={formData.martialStatus}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             >
               <option value="">Select Marital Status</option>
@@ -206,7 +206,7 @@ const Add = () => {
               onChange={handleChange}
               value={formData.designation}
               placeholder="e.g., Software Engineer"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -220,7 +220,7 @@ const Add = () => {
               name="department"
               onChange={handleChange}
               value={formData.department}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             >
               <option value="">Select Department</option>
@@ -243,7 +243,7 @@ const Add = () => {
               onChange={handleChange}
               value={formData.salary}
               placeholder="e.g., 50000"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -260,7 +260,7 @@ const Add = () => {
               value={formData.password}
               placeholder="••••••••"
               autoComplete="new-password"
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             />
           </div>
@@ -274,7 +274,7 @@ const Add = () => {
               name="role"
               onChange={handleChange}
               value={formData.role}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm md:text-base transition duration-150 ease-in-out"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 text-sm transition duration-150 ease-in-out"
               required
             >
               <option value="">Select Role</option>
